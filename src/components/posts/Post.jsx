@@ -32,7 +32,7 @@ const Post = (props) => {
   const clickLike = () => {
     const likeItem = {
       likeId: post.id,
-      likes: userData.userId,
+      authorId: data,
     };
     const createLike = async () => {
       const response = await axios.post(`/post/${post.id}/like`, likeItem);

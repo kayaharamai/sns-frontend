@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux';
 
 const Share = (userData) => {
 
@@ -17,14 +16,7 @@ const Share = (userData) => {
   const loginuser = location.state;
 
   console.log(102, userData);
-  // console.log('aa6',userDatas.userData.username);
 
-  // const loginUsername = useSelector((state) => state.loginUser.username);
-  // const loginUserId = useSelector((state) => state.loginUser.userId);
-  // const loginUserDesc = useSelector((state) => state.loginUser.desc);
-  // console.log("ko",loginUsername)
-  // console.log("ko",loginUserId)
-  // console.log("ko",loginUserDesc)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,7 +55,6 @@ const Share = (userData) => {
         <div>
           <ul class="flex justify-between">
             <li class="items-center">
-              <AddPhotoAlternate />
             </li>
             <li>
               <button
