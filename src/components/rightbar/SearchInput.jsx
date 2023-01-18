@@ -1,37 +1,37 @@
 import React, { useEffect,useState,useRef } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
-
-  // const clickSearch = () => {
-  //   const user = async () => {
-  //     const response = await axios.get("/user");
-  //   }
-  // }
 
   const [userData, setUserData] = useState([]);
   const userId = useRef();
 
 
-  useEffect(() => {
-
-  },[])
-
   const clickSearch = () => {
+    console.log(userId.current.value.length)
     const searchItem = {
       userId: userId.current.value
     }
-    const getUser = async () => {
-      const response = await axios.post("/user",searchItem);
-      return response.data;  
+
+    if(userId.current.value.length !== 0) {
+      const getUser = async () => {
+        const response = await axios.post("/user/find",searchItem);
+        return response.data;  
+      }
+      getUser().then((user) => setUserData(user))  
+    } else {
+      alert("1文字以上入力してください")
     }
-    getUser().then((user) => setUserData(user))
   }
-  console.log(userData[0])
+  console.log(userData,789)
+  console.log(userData.map((user) => console.log(user.username)))
 
   return (
     <div>
+      <div>
+        <p　class="m-5">ユーザーIDを入力して検索</p>
+      </div>
       <div class="m-5">
         <input
           type="text"
@@ -41,7 +41,14 @@ const SearchInput = () => {
         />
         <button onClick={clickSearch}>検索</button>
       </div>
-      {userData[0] ? (<p><Link to={`/profile/${userData[0].id}`}>{userData[0].userId}</Link></p>):("")}
+      {userData.map((user) => {
+        return (
+          <p class="m-8" onClick={() => window.location.reload()}>
+            {Object.keys(userData).length > 0 ? (<Link to={`/profile/${user.id}`}>{user.userId}</Link>) : ("ユーザーが見つかりません")}
+            </p>
+        )
+      })}
+      {/* {userData[0] ? (<p class="m-8"><Link to={`/profile/${searchId}`}>{searchUserId}</Link></p>):("")} */}
     </div>
   );
 };

@@ -18,20 +18,16 @@ const Timeline = () => {
   // const loginuser = location.state;
   // console.log(100,loginuser)
 
-  const  data = localStorage.getItem('id');
-  console.log("data",data)
-
-  
+  const data = localStorage.getItem("id");
+  console.log("data", data);
 
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await axios.get("/post");
       // console.log(response.data);
-      setPosts(response.data)
-
+      setPosts(response.data);
     };
     fetchPosts();
-    
   }, []);
 
   useEffect(() => {
@@ -40,16 +36,24 @@ const Timeline = () => {
       setUserData(response.data);
     };
     currentUser();
-  },[posts])
+  }, [posts]);
 
-  console.log(userData,8);
+  const followUser = userData.followings?.map((user) => user.userId);
+  console.log(followUser, 9090);
+  console.log(posts, 100);
 
-  
+  followUser?.push(userData.userId);
+
+  const newPost = posts.filter((item) => followUser?.includes(item.userId));
+  console.log(newPost, 700);
+
   return (
     <div class="bg-purple-300 basis-2/4">
-      <Share userData={userData}/>
-      {posts.map((followpost) => {
-        return <Post post={followpost} key={followpost.id} userData={userData}/>
+      <Share userData={userData} />
+      {newPost.map((followpost) => {
+        return (
+          <Post post={followpost} key={followpost.id} userData={userData} />
+        );
       })}
     </div>
   );

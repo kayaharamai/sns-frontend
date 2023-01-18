@@ -3,13 +3,18 @@ import {ChatBubbleOutline, FavoriteBorder} from '@mui/icons-material'
 import axios from "axios";
 import MyPostComment from './MyPostComment';
 import { useState } from "react";
-import { format } from "timeago.js";
+import dayjs, { locale,extend } from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 
 const MyPost = ({mypost}) => {
 
   const [openComment, setOpenComment] = useState(false);
 
   const data = localStorage.getItem("id");
+
+  dayjs.locale('ja');
+  extend(relativeTime);
     
       const clickLike = () => {
         alert("いいねを押しました")
@@ -42,7 +47,7 @@ const MyPost = ({mypost}) => {
           <li class="mr-4">画像</li>
           <li class="mr-4">{mypost.username}</li>
           <li class="mr-4">@{mypost.userId}</li>
-          <li class="mr-4">{format(mypost.createdAt)}</li>
+          <li class="mr-4">{dayjs(mypost.createdAt).fromNow()}</li>
         </ul>
       </div>
       {/* //center */}

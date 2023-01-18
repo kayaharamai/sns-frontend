@@ -1,16 +1,22 @@
 import React from "react";
 import { ChatBubbleOutline, FavoriteBorder } from "@mui/icons-material";
 import axios from "axios";
-import { format } from "timeago.js";
 import { useState } from "react";
 import CommentPost from "./CommentPost";
 import { Link } from "react-router-dom";
+import dayjs, { locale,extend } from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ja';
 
 const Post = (props) => {
-  const { post, userData } = props;
+  const { post, userData, folloUser } = props;
   const [openComment, setOpenComment] = useState(false);
   const data = localStorage.getItem("id");
   console.log(userData,34);
+
+  dayjs.locale('ja');
+  extend(relativeTime);
+  
 
   const clickComment = () => {
     if (openComment === false) {
@@ -19,6 +25,10 @@ const Post = (props) => {
       setOpenComment(false);
     }
   };
+  console.log(folloUser,90)
+
+  // let newPost = post.filter(item => item.authorId === 1)
+  // console.log(newPost)
 
   let postArray = [];
   postArray.push(post);
@@ -63,7 +73,7 @@ const Post = (props) => {
               <Link to={`/profile/${post.authorId}`}>{post.username}</Link>
             </li>
             <li class="mr-4">@{post.userId}</li>
-            <li>{format(post.createdAt)}</li>
+            <li>{dayjs(post.createdAt).fromNow()}</li>
           </ul>
           {/* <p class="my-4">{post.desc}</p> */}
         </div>

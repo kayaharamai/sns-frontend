@@ -6,7 +6,7 @@ const Rightbar = () => {
   return (
     <div class="bg-red-300 basis-1/4">
       <SearchInput />
-      <UserSearch />
+      {/* <UserSearch /> */}
     </div>
   );
 };
