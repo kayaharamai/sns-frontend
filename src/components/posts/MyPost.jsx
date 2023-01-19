@@ -7,7 +7,9 @@ import dayjs, { locale,extend } from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ja';
 
-const MyPost = ({mypost}) => {
+const MyPost = (props) => {
+
+  const {mypost,userData} = props;
 
   const [openComment, setOpenComment] = useState(false);
 
@@ -40,11 +42,11 @@ const MyPost = ({mypost}) => {
 
     
   return (
-    <div class="m-5 bg-gray-300"> 
+    <div class="p-6 border-b-2"> 
       {/* //top */}
       <div>
         <ul class="flex">
-          <li class="mr-4">画像</li>
+          <li class="mr-4"><img src={`${process.env.PUBLIC_URL}/profile.png`} alt="profile" class="w-10 rounded-full"/></li>
           <li class="mr-4">{mypost.username}</li>
           <li class="mr-4">@{mypost.userId}</li>
           <li class="mr-4">{dayjs(mypost.createdAt).fromNow()}</li>
@@ -63,7 +65,7 @@ const MyPost = ({mypost}) => {
             </li>
         </ul>
       </div>
-      {openComment ? (<MyPostComment mypost={mypost}/>) : ("")}
+      {openComment ? (<MyPostComment mypost={mypost} userData={userData}/>) : ("")}
         
     </div>
   )

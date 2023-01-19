@@ -2,14 +2,10 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createContext } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { loginUsername,loginUserId,loginDesc } from "../store/LoginSlice";
-
-
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { loginUsername, loginUserId, loginDesc } from "../store/LoginSlice";
 
 const LoginItem = () => {
   const navigate = useNavigate();
@@ -17,10 +13,9 @@ const LoginItem = () => {
   const pass = useRef();
   const [loginError, setLoginError] = useState("none");
   const [loginuser, setLoginUser] = useState({});
+  const [alertMessage, setAlertMessage] = useState(false);
 
   const dispatch = useDispatch();
-  
-  
 
   const clickLogin = (e) => {
     e.preventDefault();
@@ -29,34 +24,37 @@ const LoginItem = () => {
       email: email.current.value,
       password: pass.current.value,
     };
-    console.log(loginItem)
+    console.log(loginItem);
     // try {
-    const getUser = async () => {
-      const response = await axios.post("/login", loginItem);
-      return response.data;
-      // .then((response) => response).then((data) => {setUser(data)})
-    };
-    getUser().then((user) => setLoginUser(user))
+    if (email.current.value !== "" || pass.current.value !== "") {
+      const getUser = async () => {
+        const response = await axios.post("/login", loginItem);
+        return response.data;
+        // .then((response) => response).then((data) => {setUser(data)})
+      };
+      getUser().then((user) => setLoginUser(user));
+    } else {
+      setAlertMessage(true);
+    }
     // dispatch(loginUsername(loginuser.username))
     // console.log(0,username)
     // alert("ログインしました");
-      // navigate("/",{state:loginuser});
+    // navigate("/",{state:loginuser});
     // } catch (err) {
     // setLoginError("block");
     // }
-
   };
-  dispatch(loginUsername(loginuser.username))
-  dispatch(loginUserId(loginuser.userId))
-  dispatch(loginDesc(loginuser.desc))
+  dispatch(loginUsername(loginuser.username));
+  dispatch(loginUserId(loginuser.userId));
+  dispatch(loginDesc(loginuser.desc));
 
-  const loginArray = Object.keys(loginuser)
+  const loginArray = Object.keys(loginuser);
   console.log(33, loginuser.username);
-  if(loginArray.length > 0) {
-    window.localStorage.setItem('id',loginuser.id);
-    navigate("/")
+  if (loginArray.length > 0) {
+    window.localStorage.setItem("id", loginuser.id);
+    navigate("/home");
   } else {
-    alert("ユーザーが見つかりません")
+    // setAlertMessage(true)
   }
 
   return (
@@ -77,19 +75,18 @@ const LoginItem = () => {
               ref={pass}
             />
           </div>
-          <p style={{ display: loginError }}>ユーザーが見つかりません</p>
+          {/* <p style={{ display: loginError }}>ユーザーが見つかりません</p> */}
+          {alertMessage ? <p>必須項目を入力してください</p> : ""}
           <button>ログイン</button>
         </form>
+      </div>
+      <div>
+        <p>
+          新規会員登録は<Link to="/register">こちら</Link>
+        </p>
       </div>
     </div>
   );
 };
 
-
-
 export default LoginItem;
-
-
-
-// export const MyContext = createContext();
-// console.log(MyContext)

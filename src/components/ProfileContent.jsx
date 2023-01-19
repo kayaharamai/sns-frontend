@@ -60,13 +60,12 @@ const ProfileContent = () => {
   console.log(follow, "js");
 
   const clickRemove = () => {
-    setEditModalIsOpen(true)
+    setEditModalIsOpen(true);
     const searchItem = {
       userId: userData.userId,
       id: Number(data),
     };
     const remove = async () => {
-      
       const response = await axios.post("/following/search", searchItem);
       return response.data;
     };
@@ -109,38 +108,50 @@ const ProfileContent = () => {
   // console.log(followers,followings)
 
   return (
-    <div class="bg-purple-300 basis-2/4">
-      <div class="w-full h-52 bg-red-100">coverpicture</div>
-      <div>
-        <div class="m-5">
-          <div>画像</div>
-          <ul class="flex">
-            <li>{userData.username}</li>
-            <li>@{userData.userId}</li>
-          </ul>
-          <ul class="flex">
-            <li>{userData.desc}aaa</li>
-            <li>
-              <button>編集</button>
-            </li>
-          </ul>
-          <div>
-            <ul class="flex">
-              <li>{followings}フォロー</li>
-              <li>{followers}フォロワー</li>
+    <div class="basis-2/4">
+      {/* <div class="w-full h-52 bg-red-100">coverpicture</div> */}
+        <div class="mt-5 border-b-4">
+          <div class="flex p-3">
+            <div>
+              <img
+                src={`${process.env.PUBLIC_URL}/profile.png`}
+                alt="profile"
+                class="w-20 rounded-full mr-5"
+              />
+            </div>
+            <ul class="flex items-center ">
+              <li class="mr-4">{userData.username}</li>
+              <li>@{userData.userId}</li>
             </ul>
-            <button onClick={clickFollow}>フォローする</button>
-            <button onClick={clickRemove}>フォローを外す</button>
           </div>
+          <div class="m-5">
+            <ul class="flex mb-2">
+              <li>{userData.desc}aaa</li>
+              <li>
+                <button>編集</button>
+              </li>
+            </ul>
+            <div>
+              <ul class="flex mb-2">
+                <li class="mr-5">{followings}フォロー</li>
+                <li>{followers}フォロワー</li>
+              </ul>
+              <button onClick={clickFollow} class="mr-5">フォローする</button>
+              <button onClick={clickRemove}>フォローを外す</button>
+            </div>
         </div>
         {/* <div>
           <p>本当に解除しますか？</p>
           <button onClick={remove}>解除</button>
         </div> */}
-        <Modals remove={remove} editModalIsOpen={editModalIsOpen} setEditModalIsOpen={setEditModalIsOpen}/>
+        <Modals
+          remove={remove}
+          editModalIsOpen={editModalIsOpen}
+          setEditModalIsOpen={setEditModalIsOpen}
+        />
       </div>
       {userData.posts?.map((mypost) => {
-        return <MyPost mypost={mypost} key={mypost.id}/>;
+        return <MyPost mypost={mypost} key={mypost.id} userData={userData}/>;
       })}
     </div>
   );

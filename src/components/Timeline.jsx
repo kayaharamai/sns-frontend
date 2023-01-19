@@ -48,7 +48,7 @@ const Timeline = () => {
   console.log(newPost, 700);
 
   return (
-    <div class="bg-purple-300 basis-2/4">
+    <div class="bg-white basis-2/4">
       <Share userData={userData} />
       {newPost.map((followpost) => {
         return (
