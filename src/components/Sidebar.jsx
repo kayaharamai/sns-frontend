@@ -1,50 +1,53 @@
-import { Favorite, Home, Person, Settings } from "@mui/icons-material";
+import {Home, Person, Settings } from "@mui/icons-material";
 import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Sidebar = () => {
-
   const navigate = useNavigate();
-  const  data = localStorage.getItem('id');
+  const data = localStorage.getItem("id");
   console.log(data);
 
   const clickLogout = () => {
-    localStorage.removeItem("id")
-    alert("ログアウトしました")
+    localStorage.removeItem("id");
+    alert("ログアウトしました");
     navigate("/login");
-  }
+  };
+
+  const clickProfile = () => {
+    navigate(`/profile/${data}`);
+    window.location.reload();
+  };
 
   return (
-    <div class="bg-blue-300 basis-1/4">
+    <div class="bg-white basis-1/4 sticky top-0 left-0">
       <div class="content-around">
-        <ul class="">
-          <li class="m-8">
+        <ul>
+          <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Home />
-            <Link to="/">
-              <span class="">ホーム</span>
+            <Link to="/home">
+              <span class="ml-2">ホーム</span>
             </Link>
           </li>
-          <li class="m-8">
+          <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Person />
-            <Link to={`/profile/${data}`}>
-              <span class="">プロフィール</span>
-            </Link>
+            <span onClick={clickProfile} class="cursor-pointer ml-2">
+              プロフィール
+            </span>
           </li>
-          <li class="m-8">
-            <Favorite />
-            <Link to="/like">
-              <span class="">いいね</span>
-            </Link>
-          </li>
-          <li class="m-8">
+          <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Settings />
             <Link to="/setting">
-              <span class="">設定</span>
+              <span class="ml-2">設定</span>
             </Link>
           </li>
         </ul>
-        <button class="px-2 py-1 m-8 bg-blue-400 text-white font-semibold rounded-full hover:bg-blue-500" onClick={clickLogout}>ログアウト</button>
+        <button
+          class="relative rounded-full m-8 px-5 py-2.5 overflow-hidden group bg-mypink hover:bg-gradient-to-r hover:from-opacity-80 hover:to-opacity-80 text-white hover:ring-2 hover:ring-offset-2 hover:ring-mypink transition-all ease-out duration-300"
+          onClick={clickLogout}
+        >
+          <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+          <span class="relative font-semibold">ログアウト</span>
+        </button>
       </div>
     </div>
   );

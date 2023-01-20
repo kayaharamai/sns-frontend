@@ -1,11 +1,12 @@
 import React from "react";
-import NewsList from "./NewsList";
 import SearchInput from "./SearchInput";
 
 const Rightbar = () => {
   return (
-    <div class="bg-red-300 basis-1/4">
+    <div class="bg-white basis-1/4">
+      <div class="bg-mygreen w-10/12 my-0 mx-auto max-h-screen rounded-3xl">
       <SearchInput />
+      </div>
     </div>
   );
 };
