@@ -49,7 +49,7 @@ const RegisterInput = () => {
     <div>
       <div class="w-full max-w-md my-20 mx-auto">
         <form class="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4">
-          <h1　class="pb-3 mt-3 mb-3 font-semibold">会員登録</h1>
+          <h1 class="pb-3 mt-3 mb-3 font-semibold">会員登録</h1>
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
@@ -110,9 +110,7 @@ const RegisterInput = () => {
               ref={userPass}
             />
             {alertMessage ? (
-              <p class="text-red-500 text-xs">
-                必須項目を入力してください
-              </p>
+              <p class="text-red-500 text-xs">必須項目を入力してください</p>
             ) : (
               ""
             )}

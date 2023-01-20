@@ -4,12 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 
 const MyPostComment = (props) => {
-  const { mypost,userData } = props;
+  const { mypost, userData } = props;
   const desc = useRef();
   const [alertMessage, setAlertMessage] = useState(false);
 
   const myPostComment = mypost.comment;
-  console.log(myPostComment);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +27,6 @@ const MyPostComment = (props) => {
     }
   };
 
-
   return (
     <div>
       <div>
@@ -41,12 +39,12 @@ const MyPostComment = (props) => {
           );
         })}
       </div>
-      <form　onSubmit={handleSubmit} class="my-6 bg-mygreen rounded-lg">
+      <form onSubmit={handleSubmit} class="my-6 bg-mygreen rounded-lg">
         <input
           type="text"
           placeholder="コメントする"
           ref={desc}
-          class="mr-3 my-4 ml-2"
+          class="mr-3 my-4 ml-2 w-9/12"
         ></input>
         <button
           type="suubmit"

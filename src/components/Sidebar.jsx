@@ -1,4 +1,4 @@
-import { Favorite, Home, Person, Settings } from "@mui/icons-material";
+import {Home, Person, Settings } from "@mui/icons-material";
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -21,23 +21,23 @@ const Sidebar = () => {
   return (
     <div class="bg-white basis-1/4 sticky top-0 left-0">
       <div class="content-around">
-        <ul class="">
+        <ul>
           <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Home />
             <Link to="/home">
-              <span class="">ホーム</span>
+              <span class="ml-2">ホーム</span>
             </Link>
           </li>
           <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Person />
-            <span onClick={clickProfile} class="cursor-pointer">
+            <span onClick={clickProfile} class="cursor-pointer ml-2">
               プロフィール
             </span>
           </li>
           <li class="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">
             <Settings />
             <Link to="/setting">
-              <span class="">設定</span>
+              <span class="ml-2">設定</span>
             </Link>
           </li>
         </ul>
@@ -46,7 +46,7 @@ const Sidebar = () => {
           onClick={clickLogout}
         >
           <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-          <span class="relative">ログアウト</span>
+          <span class="relative font-semibold">ログアウト</span>
         </button>
       </div>
     </div>

@@ -58,7 +58,7 @@ const CommentPost = (props) => {
           type="text"
           placeholder="コメントする"
           ref={desc}
-          class="mr-3 my-4 ml-2"
+          class="mr-3 my-4 ml-2 w-9/12"
         ></input>
         <button
           type="suubmit"
