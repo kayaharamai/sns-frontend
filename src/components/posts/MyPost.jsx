@@ -18,10 +18,6 @@ const MyPost = (props) => {
   dayjs.locale('ja');
   extend(relativeTime);
     
-      const clickLike = () => {
-        alert("いいねを押しました")
-      }
-
       const clickDelete = () => {
         if (Number(data) === mypost.authorId) {
           alert("投稿を削除します");
@@ -54,14 +50,13 @@ const MyPost = (props) => {
       </div>
       {/* //center */}
       <div>
-        <div class="my-3">{mypost.desc}</div>
+        <div class="my-4">{mypost.desc}</div>
       </div>
       <div>
         <ul class="flex">
           <li class="w-32"><ChatBubbleOutline onClick={clickComment}/>{mypost.comment.length}</li>
-          <li class="w-32"><FavoriteBorder onClick={clickLike}/>{mypost.likes.length}</li>
           <li>
-              <button onClick={clickDelete}>削除</button>
+              <button onClick={clickDelete} class="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80">削除</button>
             </li>
         </ul>
       </div>

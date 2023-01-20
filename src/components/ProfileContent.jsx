@@ -125,11 +125,8 @@ const ProfileContent = () => {
             </ul>
           </div>
           <div class="m-5">
-            <ul class="flex mb-2">
-              <li>{userData.desc}aaa</li>
-              <li>
-                <button>編集</button>
-              </li>
+            <ul class="flex my-5">
+              <li>{userData.desc}</li>
             </ul>
             <div>
               <ul class="flex mb-2">

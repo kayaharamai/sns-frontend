@@ -41,7 +41,7 @@ const SearchInput = () => {
           class="rounded-3xl p-2 mr-2"
           ref={userId}
         />
-        <button class="px-2 py-1 bg-mypink text-white font-semibold rounded-full hover:opacity-80" onClick={clickSearch}>検索</button>
+        <button class="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80" onClick={clickSearch}>検索</button>
       </div>
       <div>
         {userData.map((user) => {

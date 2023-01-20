@@ -40,12 +40,12 @@ const CommentPost = (props) => {
   };
 
   return (
-    <div class="m-3">
+    <div>
       <div>
         {comment.map((comment) => {
           return (
             <>
-              <p class="my-2">
+              <p class="my-5 mr-3">
                 {comment.userId}
                 <span class="ml-5">{comment.comment}</span>
               </p>
@@ -53,16 +53,16 @@ const CommentPost = (props) => {
           );
         })}
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} class="my-6 bg-mygreen rounded-lg">
         <input
           type="text"
           placeholder="コメントする"
           ref={desc}
-          class="mr-3"
+          class="mr-3 my-4 ml-2"
         ></input>
         <button
           type="suubmit"
-          class="px-2 py-1 m-2 bg-mypink text-white font-semibold rounded-full hover:opacity-80"
+          class="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
         >
           投稿
         </button>

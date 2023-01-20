@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Share = (userData) => {
   const [count, setCount] = useState(0);
   const [post, setPosts] = useState([]);
-  const [alertMessage,setAlertMessage] = useState(false)
+  const [alertMessage, setAlertMessage] = useState(false);
 
   const desc = useRef();
   const location = useLocation();
@@ -33,7 +33,7 @@ const Share = (userData) => {
       });
       window.location.reload();
     } else {
-      setAlertMessage(true)
+      setAlertMessage(true);
     }
   };
 
@@ -45,9 +45,13 @@ const Share = (userData) => {
         <div>
           <h1 class="pb-3 ml-2 mt-8 font-semibold">ホーム</h1>
           <ul class="flex p-2">
-            <li><img src={`${process.env.PUBLIC_URL}/profile.png`} alt="profile" class="w-10 mr-3 rounded-full"/></li>
-            {/* <li>{loginUserId}</li>
-                <li>@{loginUsername}</li> */}
+            <li>
+              <img
+                src={`${process.env.PUBLIC_URL}/profile.png`}
+                alt="profile"
+                class="w-10 mr-3 rounded-full"
+              />
+            </li>
             <li>
               <textarea
                 type="text"
@@ -59,17 +63,24 @@ const Share = (userData) => {
               ></textarea>
             </li>
           </ul>
-          {alertMessage ? (<p class="ml-8">文字を入力してください</p>) : ("")}
+          {alertMessage ? <p class="ml-8">文字を入力してください</p> : ""}
         </div>
         <div>
           <ul class="flex justify-between">
             <li class="items-center"></li>
             <li>
-              <button
+              {/* <button
                 class="px-2 py-1 m-2 bg-mypink text-white font-semibold rounded-full hover:opacity-80"
                 type="submit"
               >
                 投稿する
+              </button> */}
+              <button
+                class="relative rounded-full m-8 px-5 py-2.5 overflow-hidden group bg-mypink hover:bg-gradient-to-r hover:from-opacity-80 hover:to-opacity-80 text-white hover:ring-2 hover:ring-offset-2 hover:ring-mypink transition-all ease-out duration-300"
+                type="submit"
+              >
+                <span class="absolute right-0 w-8 h-32　-mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                <span class="relative">投稿する</span>
               </button>
             </li>
           </ul>
