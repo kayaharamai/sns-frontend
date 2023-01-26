@@ -8,17 +8,6 @@ const SearchInput: React.FC = () => {
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
   const userId = useRef<HTMLInputElement>(null!);
 
-  // interface SearchUserData {
-  //   desc: string;
-  //   email: string;
-  //   id: number;
-  //   isAdmin: boolean;
-  //   password: string;
-  //   profilePicture: string;
-  //   userId: string;
-  //   username: string;
-  // }
-
   const clickSearch = () => {
     console.log(userId.current.value.length);
     const searchItem: SearchUser = {

@@ -9,24 +9,9 @@ const LoginItem: React.FC = () => {
   const navigate = useNavigate();
   const email = useRef<HTMLInputElement>(null!);
   const pass = useRef<HTMLInputElement>(null!);
-  const [loginuser, setLoginUser] = useState<any>([]);
+  const [loginuser, setLoginUser] = useState<any>([]); //LoginUser[]
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
-  // interface LoginUser {
-  //   desc: string;
-  //   email: string;
-  //   id: number;
-  //   isAdmin: boolean;
-  //   password: string;
-  //   profilePicture: string;
-  //   userId: string;
-  //   username: string;
-  // }
-
-  // interface LoginItem {
-  //   email: string;
-  //   password: string;
-  // }
 
   const clickLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +35,7 @@ const LoginItem: React.FC = () => {
     }
   };
 
-  console.log(loginuser, 100);
+  console.log(loginuser, 105);
 
   const loginArray: string[] = Object.keys(loginuser);
   if (loginArray.length > 0) {

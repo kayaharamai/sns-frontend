@@ -2,32 +2,16 @@ import React from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Comment, NewComment } from "../../types/Types";
+import { Comment, NewComment, PropsMyPost } from "../../types/Types";
 
-const MyPostComment = (props:any) => {
+const MyPostComment: React.FC<PropsMyPost> = (props) => {
   const { mypost, userData } = props;
   const desc = useRef<HTMLInputElement>(null!);
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
   const myPostComment: Comment[] = mypost.comment;
 
-  console.log(myPostComment,78)
-
-  // interface Comment {
-  //   comment: string;
-  //   createdAt: string;
-  //   id: number;
-  //   postId: number;
-  //   userId: string;
-  //   username: string;
-  // }
-
-  // interface NewComment {
-  //   comment: string;
-  //   postId: number;
-  //   userId: string;
-  //   username: string;
-  // }
+  console.log(myPostComment, 78);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,7 +33,7 @@ const MyPostComment = (props:any) => {
   return (
     <div>
       <div>
-        {myPostComment.map((comment:Comment) => {
+        {myPostComment.map((comment: Comment) => {
           return (
             <p className="my-5 mr-3">
               {comment.userId}

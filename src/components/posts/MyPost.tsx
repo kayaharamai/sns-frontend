@@ -7,8 +7,9 @@ import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
+import { PropsMyPost } from "../../types/Types";
 
-const MyPost = (props:any) => {
+const MyPost: React.FC<PropsMyPost> = (props) => {
   const { mypost, userData } = props;
 
   const [openComment, setOpenComment] = useState<boolean>(false);

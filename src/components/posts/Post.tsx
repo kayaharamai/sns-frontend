@@ -8,9 +8,11 @@ import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
+import { PropsPost } from "../../types/Types";
 
-const Post = (props: any) => {
-  const { post, userData, folloUser } = props;
+
+const Post: React.FC<PropsPost> = (props) => {
+  const { post, userData } = props;
   const [openComment, setOpenComment] = useState<boolean>(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
   const isAdmin: boolean = true;

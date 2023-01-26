@@ -2,39 +2,21 @@ import React from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Comment, NewComment } from "../../types/Types";
+import { Comment, NewComment, PropsPost } from "../../types/Types";
 
-const CommentPost = (props: any) => {
+const CommentPost: React.FC<PropsPost> = (props) => {
   const { post, userData } = props;
-  console.log(userData, 90);
+  console.log(post, 90);
 
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
   const desc = useRef<HTMLInputElement>(null!);
 
   const comment: Comment[] = post.comment;
-  // const commentAll = comment.map((comment: any) => {
-  //   return comment.comment;
-  // });
-  const commentUser: string[] = comment.map((commentuser: any) => {
+
+  const commentUser: string[] = comment.map((commentuser) => {
     return commentuser.userId;
   });
-
-  // interface Comment {
-  //   comment: string;
-  //   createdAt: string;
-  //   id: number;
-  //   postId: number;
-  //   userId: string;
-  //   username: string;
-  // }
-
-  // interface NewComment {
-  //   comment: string;
-  //   postId: number;
-  //   userId: string;
-  //   username: string;
-  // }
 
   console.log(comment, comment, 10);
   console.log(commentUser);

@@ -14,13 +14,6 @@ const RegisterInput: React.FC = () => {
 
   const navigate = useNavigate();
 
-  // interface UserRegister {
-  //   username: string;
-  //   userId: string;
-  //   email: string;
-  //   password: string;
-  // }
-
   const clickRegister = async () => {
     const userRegister: UserRegister = {
       username: userName.current.value,

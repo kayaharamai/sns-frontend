@@ -3,7 +3,7 @@ import MyPost from "./posts/MyPost";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Modals from "./Modal";
-import { FollowerItem, FollowItem, SearchItem } from "../types/Types";
+import { Follower, FollowerItem, Followings, FollowItem, Posts, SearchItem, UserData } from "../types/Types";
 
 const ProfileContent: React.FC = () => {
   const data: string | null = localStorage.getItem("id");
@@ -11,10 +11,10 @@ const ProfileContent: React.FC = () => {
 
   const [userData, setUserData] = useState<any>([]);
   const [loginUser, setLoginUser] = useState<any>([]);
-  const [followers, setFollowers] = useState<any>();
-  const [followings, setFollowings] = useState<any>();
-  const [removeUser, setRemoveUser] = useState<any>([]);
-  const [removerUser, setRemoverUser] = useState<any>([]);
+  const [followers, setFollowers] = useState<number>();
+  const [followings, setFollowings] = useState<number>();
+  const [removeUser, setRemoveUser] = useState<Follower[]>([]);
+  const [removerUser, setRemoverUser] = useState<Followings[]>([]);
   const [follow, setFollow] = useState<boolean>(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
@@ -33,21 +33,6 @@ const ProfileContent: React.FC = () => {
     };
     loginUser();
   }, []);
-
-  // interface FollowerItem {
-  //   followerId: number;
-  //   userId: string;
-  // }
-
-  // interface FollowItem {
-  //   followId: number;
-  //   userId: string;
-  // }
-
-  // interface SearchItem {
-  //   userId: string;
-  //   id: number;
-  // }
 
   const clickFollow = async () => {
     if (Number(data) !== userData.id && follow === false) {
@@ -115,7 +100,7 @@ const ProfileContent: React.FC = () => {
     window.location.reload();
   };
 
-  console.log(userData);
+  console.log(loginUser,97);
 
   return (
     <div className="basis-2/4">
@@ -158,11 +143,12 @@ const ProfileContent: React.FC = () => {
         </div>
         <Modals
           remove={remove}
+          appElement={document.getElementById('app')}
           editModalIsOpen={editModalIsOpen}
           setEditModalIsOpen={setEditModalIsOpen}
         />
       </div>
-      {userData.posts?.map((mypost: any) => {
+      {userData.posts?.map((mypost: Posts) => {
         return <MyPost mypost={mypost} key={mypost.id} userData={userData} />;
       })}
     </div>

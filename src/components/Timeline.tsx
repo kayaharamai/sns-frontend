@@ -3,25 +3,13 @@ import { useEffect } from "react";
 import Post from "./posts/Post";
 import Share from "./posts/Share";
 import axios, { AxiosResponse } from "axios";
-import { Posts } from "../types/Types";
+import { Posts,UserData } from "../types/Types";
 
 const Timeline: React.FC = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
-  const [userData, setUserData] = useState<any>([]);
+  const [userData, setUserData] = useState<any>([]);　//UserData
 
   const data: string | null = localStorage.getItem("id");
-
-  // interface Posts {
-  //   authorId: number;
-  //   comment: [];
-  //   createdAt: string;
-  //   desc: string;
-  //   id: number;
-  //   img: null;
-  //   likes: [];
-  //   userId: string;
-  //   username: string;
-  // }
 
   // interface UserData {
   //   desc: string;
@@ -56,7 +44,7 @@ const Timeline: React.FC = () => {
     const currentUser = async () => {
       const response = await axios
         .get(`/profile/${data}`)
-        .then((responses: AxiosResponse<any[]>) => setUserData(responses.data));
+        .then((responses: AxiosResponse<UserData[]>) => setUserData(responses.data));
     };
     currentUser();
   }, [posts]);

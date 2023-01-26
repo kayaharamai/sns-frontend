@@ -12,10 +12,6 @@ const SettingItem = () => {
   const navigate = useNavigate();
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
-  // interface ChangeItem {
-  //   desc: string;
-  // }
-
   const clickChange = async () => {
     const changeItem: ChangeItem = {
       desc: profile.current.value,

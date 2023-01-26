@@ -32,6 +32,12 @@ export interface Followings {
   userId: string;
 }
 
+export interface Follower {
+  id: number;
+  followId: number;
+  userId: string;
+}
+
 export interface NewPost {
   authorId: number;
   desc: string;
@@ -110,4 +116,14 @@ export interface UserRegister {
   userId: string;
   email: string;
   password: string;
+}
+
+export interface PropsPost {
+  post: Posts;
+  userData: UserData
+}
+
+export interface PropsMyPost {
+  mypost: Posts;
+  userData: UserData
 }
