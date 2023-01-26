@@ -1,10 +1,10 @@
 import React from "react";
 import SearchInput from "./SearchInput";
 
-const Rightbar = () => {
+const Rightbar: React.FC = () => {
   return (
-    <div class="bg-white basis-1/4">
-      <div class="bg-mygreen w-10/12 my-0 mx-auto max-h-screen rounded-3xl">
+    <div className="bg-white basis-1/4">
+      <div className="bg-mygreen w-10/12 my-0 mx-auto max-h-screen rounded-3xl">
       <SearchInput />
       </div>
     </div>

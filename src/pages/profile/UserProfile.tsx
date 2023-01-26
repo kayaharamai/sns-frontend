@@ -3,9 +3,9 @@ import Rightbar from '../../components/rightbar/Rightbar'
 import Sidebar from '../../components/Sidebar'
 import ProfileContent from '../../components/ProfileContent'
 
-const Profile = () => {
+const Profile: React.FC = () => {
   return (
-    <div class="flex w-full h-screen">
+    <div className="flex w-full h-screen">
         <Sidebar />
         <ProfileContent />
         <Rightbar />

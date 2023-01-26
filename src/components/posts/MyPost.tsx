@@ -8,15 +8,15 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
 
-const MyPost = (props) => {
+const MyPost = (props:any) => {
   const { mypost, userData } = props;
 
-  const [openComment, setOpenComment] = useState(false);
-  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-  const myPost = true;
-  const isAdmin = true;
+  const [openComment, setOpenComment] = useState<boolean>(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
+  const myPost: boolean = true;
+  const isAdmin: boolean = true;
 
-  const data = localStorage.getItem("id");
+  const data: string | null = localStorage.getItem("id");
 
   dayjs.locale("ja");
   extend(relativeTime);
@@ -47,34 +47,34 @@ const MyPost = (props) => {
   };
 
   return (
-    <div class="p-6 border-b-2">
+    <div className="p-6 border-b-2">
       <div>
-        <ul class="flex">
-          <li class="mr-4">
+        <ul className="flex">
+          <li className="mr-4">
             <img
               src={`${process.env.PUBLIC_URL}/profile.png`}
               alt="profile"
-              class="w-10 rounded-full"
+              className="w-10 rounded-full"
             />
           </li>
-          <li class="mr-4">{mypost.username}</li>
-          <li class="mr-4">@{mypost.userId}</li>
-          <li class="mr-4">{dayjs(mypost.createdAt).fromNow()}</li>
+          <li className="mr-4">{mypost.username}</li>
+          <li className="mr-4">@{mypost.userId}</li>
+          <li className="mr-4">{dayjs(mypost.createdAt).fromNow()}</li>
         </ul>
       </div>
       <div>
-        <div class="my-4">{mypost.desc}</div>
+        <div className="my-4">{mypost.desc}</div>
       </div>
       <div>
-        <ul class="flex">
-          <li class="w-32">
+        <ul className="flex">
+          <li className="w-32">
             <ChatBubbleOutline onClick={clickComment} />
             {mypost.comment.length}
           </li>
           <li>
             <button
               onClick={deleteAlert}
-              class="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
+              className="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
             >
               削除
             </button>
