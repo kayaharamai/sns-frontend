@@ -10,7 +10,6 @@ import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
 import { PropsPost } from "../../types/Types";
 
-
 const Post: React.FC<PropsPost> = (props) => {
   const { post, userData } = props;
   const [openComment, setOpenComment] = useState<boolean>(false);
@@ -87,6 +86,7 @@ const Post: React.FC<PropsPost> = (props) => {
             </li>
             {editModalIsOpen ? (
               <DeleteModal
+                // userDelete={"ok"}
                 clickDelete={clickDelete}
                 editModalIsOpen={editModalIsOpen}
                 setEditModalIsOpen={setEditModalIsOpen}

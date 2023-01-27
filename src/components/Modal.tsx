@@ -1,8 +1,9 @@
 import { Container } from "@mui/material";
 import React from "react";
 import Modal from "react-modal";
+import { PropsModal } from "../types/Types";
 
-function Modals(props:any) {
+const Modals: React.FC<PropsModal> = (props) => {
   const { remove, editModalIsOpen, setEditModalIsOpen } = props;
 
   const customStyles = {
@@ -24,7 +25,7 @@ function Modals(props:any) {
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
-        <p className="text-center m-5">本当に削除しますか？</p>
+        <p className="text-center m-5">本当に削除しますか〜？</p>
         <ul className="flex justify-around m-5">
           <li>
             <button

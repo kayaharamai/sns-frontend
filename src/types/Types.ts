@@ -127,3 +127,19 @@ export interface PropsMyPost {
   mypost: Posts;
   userData: UserData
 }
+
+export interface PropsModal {
+  remove: () => void;
+  editModalIsOpen: boolean;
+  setEditModalIsOpen: any
+}
+
+export interface PropsDeleteModal {
+  userDelete: any;
+  clickDelete: () => void;
+  // clickMyDelete: () => void;
+  editModalIsOpen: boolean;
+  setEditModalIsOpen: any;
+  isAdmin: boolean;
+  // mypost: boolean;
+}

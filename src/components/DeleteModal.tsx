@@ -1,16 +1,17 @@
 import { Container } from "@mui/material";
 import React from "react";
 import Modal from "react-modal";
+import { PropsDeleteModal } from "../types/Types";
 
-function DeleteModal(props:any) {
+const DeleteModal= (props:any) => {
   const {
     userDelete,
     clickDelete,
-    clickMyDelete,
+    // clickMyDelete,
     editModalIsOpen,
     setEditModalIsOpen,
     isAdmin,
-    mypost,
+    // mypost,
   } = props;
 
   const customStyles = {
@@ -32,7 +33,7 @@ function DeleteModal(props:any) {
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
-        <p className="text-center m-5">本当に削除しますか？</p>
+        <p className="text-center m-5">本当に削除しますかっ？</p>
         <ul className="flex justify-around m-5">
           {isAdmin ? (
             <li>

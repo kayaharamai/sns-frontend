@@ -81,7 +81,8 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
             </button>
             {editModalIsOpen ? (
               <DeleteModal
-                mypost={true}
+                // mypost={true} //削除
+                // userDelete={"ok"}
                 isAdmin={isAdmin}
                 clickDelete={clickMyDelete}
                 setEditModalIsOpen={setEditModalIsOpen}

@@ -143,7 +143,7 @@ const ProfileContent: React.FC = () => {
         </div>
         <Modals
           remove={remove}
-          appElement={document.getElementById('app')}
+          // appElement={document.getElementById('app')}
           editModalIsOpen={editModalIsOpen}
           setEditModalIsOpen={setEditModalIsOpen}
         />
