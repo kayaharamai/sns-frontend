@@ -3,13 +3,15 @@ import { useEffect } from "react";
 import Post from "./posts/Post";
 import Share from "./posts/Share";
 import axios, { AxiosResponse } from "axios";
-import { Posts,UserData } from "../types/Types";
+import { Follower, Posts, UserData } from "../types/Types";
 
 const Timeline: React.FC = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
-  const [userData, setUserData] = useState<any>([]);　//UserData
-
+  const [userData, setUserData] = useState<any>([]); //UserData
   const data: string | null = localStorage.getItem("id");
+
+  console.log(posts, 88);
+  console.log(userData, 99);
 
   // interface UserData {
   //   desc: string;
@@ -44,7 +46,9 @@ const Timeline: React.FC = () => {
     const currentUser = async () => {
       const response = await axios
         .get(`/profile/${data}`)
-        .then((responses: AxiosResponse<UserData[]>) => setUserData(responses.data));
+        .then((responses: AxiosResponse<UserData[]>) =>
+          setUserData(responses.data)
+        );
     };
     currentUser();
   }, [posts]);
@@ -60,13 +64,15 @@ const Timeline: React.FC = () => {
   );
 
   return (
-    <div className="bg-white basis-2/4">
-      <Share userData={userData} />
-      {newPost.map((followpost: Posts) => {
-        return (
-          <Post post={followpost} key={followpost.id} userData={userData} />
-        );
-      })}
+    <div className="bg-white basis-2/4 max-h-screen overflow-scroll">
+      <div>
+        <Share userData={userData} />
+        {newPost.map((followpost: Posts) => {
+          return (
+            <Post post={followpost} key={followpost.id} userData={userData} />
+          );
+        })}
+      </div>
     </div>
   );
 };

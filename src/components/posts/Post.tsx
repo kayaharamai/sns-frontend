@@ -1,5 +1,9 @@
 import React from "react";
-import { ChatBubbleOutline } from "@mui/icons-material";
+import {
+  ChatBubbleOutline,
+  Favorite,
+  FavoriteBorder,
+} from "@mui/icons-material";
 import axios from "axios";
 import { useState } from "react";
 import CommentPost from "./CommentPost";
@@ -8,7 +12,7 @@ import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
-import { PropsPost } from "../../types/Types";
+import { PropsPost,LikeId } from "../../types/Types";
 
 const Post: React.FC<PropsPost> = (props) => {
   const { post, userData } = props;
@@ -20,11 +24,41 @@ const Post: React.FC<PropsPost> = (props) => {
   dayjs.locale("ja");
   extend(relativeTime);
 
+  const liked = post.likes.map((like: LikeId) => like.likes);
+
   const clickComment = () => {
     if (openComment === false) {
       setOpenComment(true);
     } else {
       setOpenComment(false);
+    }
+  };
+
+
+  const likeId: LikeId[] = post.likes.filter((item: LikeId) =>
+    item.likes === userData.userId
+  );
+
+  const clickLike = () => {
+    const likeItem = {
+      likeId: post.id,
+      userId: userData.userId,
+      authorId: data,
+    };
+    if (!liked.includes(userData.userId)) {
+      const createLike = async () => {
+        const response = await axios.post(`/post/${post.id}/like`, likeItem);
+        return response.data;
+      };
+      createLike();
+      window.location.reload();
+    } else {
+      const deleteLike = async () => {
+        const response = await axios.delete(`/post/${likeId[0]?.id}/like`);
+        return response.data;
+      };
+      deleteLike();
+      window.location.reload();
     }
   };
 
@@ -47,6 +81,7 @@ const Post: React.FC<PropsPost> = (props) => {
       alert("自分の投稿以外は削除できません");
     }
   };
+
 
   return (
     <>
@@ -75,6 +110,11 @@ const Post: React.FC<PropsPost> = (props) => {
             <li className="w-32 items-center">
               <ChatBubbleOutline onClick={clickComment} />
               {post.comment.length}
+            </li>
+            <li className="w-32 items-center">
+              <FavoriteBorder onClick={clickLike} />
+              {post.likes.length}
+              {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink">いいね済み</span> : ""}
             </li>
             <li>
               <button

@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatBubbleOutline } from "@mui/icons-material";
+import { ChatBubbleOutline, FavoriteBorder } from "@mui/icons-material";
 import axios from "axios";
 import MyPostComment from "./MyPostComment";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
-import { PropsMyPost } from "../../types/Types";
+import { LikeId, PropsMyPost } from "../../types/Types";
 
 const MyPost: React.FC<PropsMyPost> = (props) => {
   const { mypost, userData } = props;
@@ -21,6 +21,35 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
 
   dayjs.locale("ja");
   extend(relativeTime);
+
+  const liked = mypost.likes.map((like: LikeId) => like.likes)
+
+  const likeId: LikeId[] = mypost.likes.filter((item: LikeId) =>
+    item.likes === userData.userId
+  );
+
+  const myPostLike = () => {
+    const likeItem = {
+      likeId: mypost.id,
+      userId: userData.userId,
+      authorId: data
+    };
+    if (!liked.includes(userData.userId)) {
+      const createLike = async () => {
+        const response = await axios.post(`/post/${mypost.id}/like`, likeItem);
+        return response.data;
+      };
+      createLike();
+      window.location.reload();
+    } else {
+      const deleteLike = async () => {
+        const response = await axios.delete(`/post/${likeId[0]?.id}/like`);
+        return response.data;
+      };
+      deleteLike();
+      window.location.reload();
+    }
+  }
 
   const deleteAlert = () => {
     if (Number(data) === mypost.authorId) {
@@ -71,6 +100,11 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
           <li className="w-32">
             <ChatBubbleOutline onClick={clickComment} />
             {mypost.comment.length}
+          </li>
+          <li className="w-32">
+            <FavoriteBorder onClick={myPostLike} />
+            {mypost.likes.length}
+            {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink">いいね済み</span> : ""}
           </li>
           <li>
             <button

@@ -15,12 +15,12 @@ export interface Posts {
 export interface UserData {
   desc: string;
   email: string;
-  followers: [];
-  followings: [];
+  followers: Followings[];
+  followings: Follower[];
   id: number;
   isAdmin: boolean;
   password: string;
-  posts: [];
+  posts: Posts[];
   profilePicture: string;
   userId: string;
   username: string;
@@ -142,4 +142,10 @@ export interface PropsDeleteModal {
   setEditModalIsOpen: any;
   isAdmin: boolean;
   // mypost: boolean;
+}
+
+export interface LikeId {
+  id: number;
+  likes: string;
+  authorId: number
 }

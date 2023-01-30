@@ -13,6 +13,7 @@ const ProfileContent: React.FC = () => {
   const [loginUser, setLoginUser] = useState<any>([]);
   const [followers, setFollowers] = useState<number>();
   const [followings, setFollowings] = useState<number>();
+  const [followConfirm,setFollowConfirm] = useState<any>([]);
   const [removeUser, setRemoveUser] = useState<Follower[]>([]);
   const [removerUser, setRemoverUser] = useState<Followings[]>([]);
   const [follow, setFollow] = useState<boolean>(false);
@@ -24,6 +25,7 @@ const ProfileContent: React.FC = () => {
       setUserData(response.data);
       setFollowers(Object.keys(response.data.followers).length);
       setFollowings(Object.keys(response.data.followings).length);
+      setFollowConfirm(Object.keys(response.data.followers))
     };
     currentUser();
 
@@ -33,6 +35,9 @@ const ProfileContent: React.FC = () => {
     };
     loginUser();
   }, []);
+
+  const followArray = userData.followers?.map((item:any) => item.userId)
+  const followUser = followArray?.includes(loginUser.userId)
 
   const clickFollow = async () => {
     if (Number(data) !== userData.id && follow === false) {
@@ -100,6 +105,7 @@ const ProfileContent: React.FC = () => {
     window.location.reload();
   };
 
+
   console.log(loginUser,97);
 
   return (
@@ -116,6 +122,7 @@ const ProfileContent: React.FC = () => {
           <ul className="flex items-center ">
             <li className="mr-4 font-semibold text-lg">{userData.username}</li>
             <li className="font-semibold text-lg">@{userData.userId}</li>
+            <li>{followUser ? (<span className="text-xs ml-5 text-mypink">フォロー中</span>) : ("")}</li>
           </ul>
         </div>
         <div className="m-5">
