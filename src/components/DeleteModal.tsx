@@ -33,7 +33,8 @@ const DeleteModal= (props:any) => {
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
-        <p className="text-center m-5">本当に削除しますかっ？</p>
+        <p className="text-center m-4">本当に削除しますか？</p>
+        <p className="text-center m-2 text-sm">この操作は取り消せません。</p>
         <ul className="flex justify-around m-5">
           {isAdmin ? (
             <li>

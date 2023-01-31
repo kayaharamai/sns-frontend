@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatBubbleOutline, FavoriteBorder } from "@mui/icons-material";
+import { ChatBubbleOutline, Check, FavoriteBorder } from "@mui/icons-material";
 import axios from "axios";
 import MyPostComment from "./MyPostComment";
 import { useState } from "react";
@@ -104,7 +104,7 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
           <li className="w-32">
             <FavoriteBorder onClick={myPostLike} />
             {mypost.likes.length}
-            {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink">いいね済み</span> : ""}
+            {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink"><Check /></span> : ""}
           </li>
           <li>
             <button

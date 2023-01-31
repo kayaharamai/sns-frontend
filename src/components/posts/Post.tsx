@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ChatBubbleOutline,
+  Check,
   Favorite,
   FavoriteBorder,
 } from "@mui/icons-material";
@@ -13,6 +14,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
 import DeleteModal from "../DeleteModal";
 import { PropsPost,LikeId } from "../../types/Types";
+
 
 const Post: React.FC<PropsPost> = (props) => {
   const { post, userData } = props;
@@ -114,7 +116,7 @@ const Post: React.FC<PropsPost> = (props) => {
             <li className="w-32 items-center">
               <FavoriteBorder onClick={clickLike} />
               {post.likes.length}
-              {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink">いいね済み</span> : ""}
+              {liked.includes(userData.userId) ? <span className="text-xs ml-2 text-mypink"><Check /></span> : ""}
             </li>
             <li>
               <button
@@ -139,6 +141,7 @@ const Post: React.FC<PropsPost> = (props) => {
         </div>
         {openComment ? <CommentPost post={post} userData={userData} /> : ""}
       </div>
+
     </>
   );
 };

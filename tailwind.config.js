@@ -7,6 +7,7 @@ module.exports = {
         mygreen: "#f0faf1",
         mygray: "#E6E6E6",
         mypink: "#EDC895",
+        myblue: "#B0C4DE"
       },
     },
   },

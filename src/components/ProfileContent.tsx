@@ -3,7 +3,15 @@ import MyPost from "./posts/MyPost";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Modals from "./Modal";
-import { Follower, FollowerItem, Followings, FollowItem, Posts, SearchItem, UserData } from "../types/Types";
+import {
+  Follower,
+  FollowerItem,
+  Followings,
+  FollowItem,
+  Posts,
+  SearchItem,
+  UserData,
+} from "../types/Types";
 
 const ProfileContent: React.FC = () => {
   const data: string | null = localStorage.getItem("id");
@@ -13,10 +21,8 @@ const ProfileContent: React.FC = () => {
   const [loginUser, setLoginUser] = useState<any>([]);
   const [followers, setFollowers] = useState<number>();
   const [followings, setFollowings] = useState<number>();
-  const [followConfirm,setFollowConfirm] = useState<any>([]);
   const [removeUser, setRemoveUser] = useState<Follower[]>([]);
   const [removerUser, setRemoverUser] = useState<Followings[]>([]);
-  const [follow, setFollow] = useState<boolean>(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -25,7 +31,6 @@ const ProfileContent: React.FC = () => {
       setUserData(response.data);
       setFollowers(Object.keys(response.data.followers).length);
       setFollowings(Object.keys(response.data.followings).length);
-      setFollowConfirm(Object.keys(response.data.followers))
     };
     currentUser();
 
@@ -36,27 +41,30 @@ const ProfileContent: React.FC = () => {
     loginUser();
   }, []);
 
-  const followArray = userData.followers?.map((item:any) => item.userId)
-  const followUser = followArray?.includes(loginUser.userId)
+  const followArray = userData.followers?.map((item: any) => item.userId);
+  const followUser = followArray?.includes(loginUser.userId);
 
   const clickFollow = async () => {
-    if (Number(data) !== userData.id && follow === false) {
-      const followerItem: FollowerItem = {
-        followerId: userData.id,
-        userId: loginUser.userId,
-      };
-      const followItem: FollowItem = {
-        followId: Number(data),
-        userId: userData.userId,
-      };
-      console.log(followItem);
-      await axios.post("/follower", followerItem);
-      await axios.post("/following", followItem);
-      alert("フォローしました");
-      window.location.reload();
-      setFollow(true);
-    } else {
+    if (Number(data) === userData.id) {
       alert("自分をフォローできません");
+    } else {
+      if (Number(data) !== userData.id && !followUser) {
+        const followerItem: FollowerItem = {
+          followerId: userData.id,
+          userId: loginUser.userId,
+        };
+        const followItem: FollowItem = {
+          followId: Number(data),
+          userId: userData.userId,
+        };
+        console.log(followItem);
+        await axios.post("/follower", followerItem);
+        await axios.post("/following", followItem);
+        alert("フォローしました");
+        window.location.reload();
+      } else {
+        alert("すでにフォロー済みです");
+      }
     }
   };
 
@@ -105,11 +113,10 @@ const ProfileContent: React.FC = () => {
     window.location.reload();
   };
 
-
-  console.log(loginUser,97);
+  console.log(loginUser, 97);
 
   return (
-    <div className="basis-2/4">
+    <div className="basis-2/4 max-h-screen overflow-scroll">
       <div className="mt-5 border-b-4">
         <div className="flex p-3">
           <div>
@@ -122,7 +129,13 @@ const ProfileContent: React.FC = () => {
           <ul className="flex items-center ">
             <li className="mr-4 font-semibold text-lg">{userData.username}</li>
             <li className="font-semibold text-lg">@{userData.userId}</li>
-            <li>{followUser ? (<span className="text-xs ml-5 text-mypink">フォロー中</span>) : ("")}</li>
+            <li>
+              {followUser ? (
+                <span className="text-xs ml-5 text-mypink">フォロー中</span>
+              ) : (
+                ""
+              )}
+            </li>
           </ul>
         </div>
         <div className="m-5">

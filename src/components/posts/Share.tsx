@@ -3,26 +3,24 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { NewPost } from "../../types/Types";
+import { Add } from "@mui/icons-material";
+import PostModal from "./PostModal";
 
-const Share: React.FC<{userData: any}> = (userData) => {
-  const [count, setCount] = useState<number>(0);
+const Share: React.FC<{ userData: any }> = (userData) => {
   const [post, setPosts] = useState<NewPost[]>([]);
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
 
   const desc = useRef<HTMLTextAreaElement>(null!);
+  const data: string | null = localStorage.getItem("id");
 
-  // interface NewPost {
-  //   authorId: number;
-  //   desc: string;
-  //   userId: string;
-  //   username: string;
-  // }
+  console.log(userData, 109);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newPost: NewPost = {
-      authorId: userData.userData.id,
+      authorId: Number(data),
       desc: desc.current.value,
       userId: userData.userData.userId,
       username: userData.userData.username,
@@ -30,7 +28,7 @@ const Share: React.FC<{userData: any}> = (userData) => {
 
     if (desc.current.value !== "") {
       await axios.post("/post", newPost).then((response) => {
-        axios.get("/post").then((response:AxiosResponse<NewPost[]>) => {
+        axios.get("/post").then((response: AxiosResponse<NewPost[]>) => {
           setPosts(response.data);
         });
       });
@@ -40,7 +38,13 @@ const Share: React.FC<{userData: any}> = (userData) => {
     }
   };
 
-  console.log(post,0);
+  const clickPost = () => {
+    setEditModalIsOpen(true);
+  };
+
+  console.log(editModalIsOpen, 13);
+
+  
 
   return (
     <div className="border-b-4">
@@ -61,7 +65,6 @@ const Share: React.FC<{userData: any}> = (userData) => {
                 ref={desc}
                 className=""
                 cols={60}
-                onChange={(e) => setCount(count + Number(1))}
               ></textarea>
             </li>
           </ul>
@@ -86,6 +89,28 @@ const Share: React.FC<{userData: any}> = (userData) => {
           </ul>
         </div>
       </form>
+
+      <div className="">
+        {!editModalIsOpen ? (
+          <div className="fixed z-50 bg-mypink p-3 rounded-3xl bottom-10 right-96">
+            <button onClick={clickPost}>
+              <Add />
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+
+        {editModalIsOpen ? (
+          <PostModal
+            editModalIsOpen={editModalIsOpen}
+            setEditModalIsOpen={setEditModalIsOpen}
+            userData={userData}
+          />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };
