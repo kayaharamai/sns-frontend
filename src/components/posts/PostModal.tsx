@@ -21,6 +21,7 @@ const PostModal = (props: any) => {
   };
 
   const close = () => {
+    localStorage.removeItem("post");
     setEditModalIsOpen(false);
   };
 

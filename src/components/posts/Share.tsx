@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { NewPost } from "../../types/Types";
-import { Add } from "@mui/icons-material";
+import { Add, Update } from "@mui/icons-material";
 import PostModal from "./PostModal";
 
 const Share: React.FC<{ userData: any }> = (userData) => {
@@ -36,21 +36,31 @@ const Share: React.FC<{ userData: any }> = (userData) => {
     } else {
       setAlertMessage(true);
     }
+    localStorage.removeItem("post");
   };
 
   const clickPost = () => {
+    window.localStorage.setItem("post", "open");
     setEditModalIsOpen(true);
+  };
+  const postOpen = localStorage.getItem("post");
+
+  const clickUpdate = () => {
+    window.location.reload();
   };
 
   console.log(editModalIsOpen, 13);
-
-  
 
   return (
     <div className="border-b-4">
       <form onSubmit={(e) => handleSubmit(e)} className="m-4">
         <div>
-          <h1 className="pb-3 ml-2 mt-8 font-semibold text-lg">ホーム</h1>
+          {postOpen !== "open" ? (
+            <h1 className="pb-3 ml-2 mt-8 font-semibold text-lg">ホーム</h1>
+          ) : (
+            ""
+          )}
+
           <ul className="flex p-2">
             <li>
               <img
@@ -89,13 +99,29 @@ const Share: React.FC<{ userData: any }> = (userData) => {
           </ul>
         </div>
       </form>
+      {postOpen !== "open" ? (
+        <button
+          onClick={clickUpdate}
+          className="px-2 py-1 mr-0 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
+        >
+          <Update />
+        </button>
+      ) : (
+        ""
+      )}
 
       <div className="">
         {!editModalIsOpen ? (
-          <div className="fixed z-50 bg-mypink p-3 rounded-3xl bottom-10 right-96">
-            <button onClick={clickPost}>
-              <Add />
-            </button>
+          <div>
+            {postOpen !== "open" ? (
+              <div className="fixed z-50 bg-mypink p-3 rounded-3xl bottom-10 right-96">
+                <button onClick={clickPost}>
+                  <Add />
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         ) : (
           ""

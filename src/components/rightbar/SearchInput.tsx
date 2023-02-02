@@ -30,7 +30,7 @@ const SearchInput: React.FC = () => {
     }
   };
 
-  console.log(userData, 0);
+  console.log(Object.keys(userData).length === 0,9);
 
   return (
     <div className="my-8 pb-2">
@@ -56,10 +56,10 @@ const SearchInput: React.FC = () => {
           return (
             <React.Fragment key={user.id}>
               <p className="m-8" onClick={() => window.location.reload()}>
-                {Object.keys(userData).length > 0 ? (
+                {Object.keys(userData).length !== 0 ? (
                   <Link to={`/profile/${user.id}`}>{user.userId}</Link>
                 ) : (
-                  "ユーザーが見つかりません"
+                  <p>ユーザーが見つかりません</p>
                 )}
               </p>
             </React.Fragment>

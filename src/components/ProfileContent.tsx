@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyPost from "./posts/MyPost";
-import axios,{AxiosResponse} from "axios";
-import { Link, useParams } from "react-router-dom";
+import axios, { AxiosResponse } from "axios";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Modals from "./Modal";
 import {
   Follower,
@@ -12,19 +12,22 @@ import {
   SearchItem,
   UserData,
 } from "../types/Types";
+import LikeContents from "./LikeContents";
 
 const ProfileContent: React.FC = () => {
   const data: string | null = localStorage.getItem("id");
   const params = useParams();
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState<any>([]);
-  const [mylike, setMylike] = useState<Posts[]>([]);
+  const [mylike, setMylike] = useState<any>([]);
   const [loginUser, setLoginUser] = useState<any>([]);
   const [followers, setFollowers] = useState<number>();
   const [followings, setFollowings] = useState<number>();
   const [removeUser, setRemoveUser] = useState<Follower[]>([]);
   const [removerUser, setRemoverUser] = useState<Followings[]>([]);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
+  const [likeConfirm, setLikeConfirm] = useState<boolean>(false);
 
   useEffect(() => {
     const currentUser = async () => {
@@ -53,9 +56,7 @@ const ProfileContent: React.FC = () => {
         .then((responses: AxiosResponse<any>) => setMylike(responses.data));
     };
     postLike();
-  },[])
-
-  console.log(mylike,73)
+  }, []);
 
   const followArray = userData.followers?.map((item: any) => item.userId);
   const followUser = followArray?.includes(loginUser.userId);
@@ -130,6 +131,13 @@ const ProfileContent: React.FC = () => {
     setEditModalIsOpen(false);
     window.location.reload();
   };
+  const likePost = () => {
+    if (likeConfirm === false) {
+      setLikeConfirm(true);
+    } else {
+      setLikeConfirm(false);
+    }
+  };
 
   return (
     <div className="basis-2/4 max-h-screen overflow-scroll">
@@ -189,6 +197,8 @@ const ProfileContent: React.FC = () => {
             >
               フォローを外す
             </button>
+            {/* {mylike.map((mylikePost:any) => {
+                return (
             <Link
               to={{pathname: `/profile/${params.id}/like`}}
               state={{ state: mylike }}
@@ -196,6 +206,20 @@ const ProfileContent: React.FC = () => {
             >
               いいね
             </Link>
+            )
+            })}  */}
+            <button onClick={likePost}>いいね</button>
+            {likeConfirm ? (
+            <ul className="bg-mypink">
+              {mylike.map((mylikePost: any) => {
+                return (
+                  <li>
+                    <LikeContents mylike={mylikePost} />
+                  </li>
+                );
+              })}
+            </ul>) : ("")}
+            
           </div>
         </div>
         <Modals

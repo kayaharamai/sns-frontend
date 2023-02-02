@@ -25,12 +25,13 @@ console.log(followerList)
           <ArrowBack />
         </button>
       </div>
-      <div>
+      <div className="bg-mygreen w-4/12 my-6 mx-auto p-3 rounded-3xl">
+        <h1 className="pb-3 ml-2 mt-6 font-semibold text-lg">フォロワー一覧</h1>
         <ul>
           {followerList?.map((followerUser) => {
             return (
               <React.Fragment key={followerUser.userId}>
-                <li><Link to={`/profile/${followerUser.followId}`}>{followerUser.userId}</Link></li>
+                <li className="ml-2 mb-2"><Link to={`/profile/${followerUser.followId}`}>{followerUser.userId}</Link></li>
               </React.Fragment>
             );
           })}

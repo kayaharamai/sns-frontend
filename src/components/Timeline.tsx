@@ -10,29 +10,6 @@ const Timeline: React.FC = () => {
   const [userData, setUserData] = useState<any>([]); //UserData
   const data: string | null = localStorage.getItem("id");
 
-  console.log(posts, 88);
-  console.log(userData, 99);
-
-  // interface UserData {
-  //   desc: string;
-  //   email: string;
-  //   followers: [];
-  //   followings: [];
-  //   id: number;
-  //   isAdmin: boolean;
-  //   password: string;
-  //   posts: [];
-  //   profilePicture: string;
-  //   userId: string;
-  //   username: string;
-  // }
-
-  // interface Followings {
-  //   id: number;
-  //   followerId: number;
-  //   userId: string;
-  // }
-
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await axios
@@ -56,7 +33,6 @@ const Timeline: React.FC = () => {
   const followUser: string[] = userData.followings?.map(
     (user: any) => user.userId
   );
-
   followUser?.push(userData.userId);
 
   const newPost: Posts[] = posts.filter((item: Posts) =>
