@@ -63,11 +63,13 @@ export interface SearchUser {
 export interface FollowerItem {
   followerId: number;
   userId: string;
+  followId: number;
 }
 
 export interface FollowItem {
   followId: number;
   userId: string;
+  followerId: number;
 }
 
 export interface SearchItem {
@@ -145,7 +147,7 @@ export interface PropsDeleteModal {
 }
 
 export interface LikeId {
-  id: number;
+  id: number | null;
   likes: string;
   authorId: number
 }

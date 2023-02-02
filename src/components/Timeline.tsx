@@ -63,6 +63,7 @@ const Timeline: React.FC = () => {
     followUser?.includes(item.userId)
   );
 
+  console.log(newPost,9)
   return (
       <div className="bg-white basis-2/4 max-h-screen overflow-scroll">
         <div>

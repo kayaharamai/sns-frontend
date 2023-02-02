@@ -36,6 +36,8 @@ const Post: React.FC<PropsPost> = (props) => {
     }
   };
 
+  console.log(post.likes,100)
+
 
   const likeId: LikeId[] = post.likes.filter((item: LikeId) =>
     item.likes === userData.userId

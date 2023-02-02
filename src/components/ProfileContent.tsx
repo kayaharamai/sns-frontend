@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MyPost from "./posts/MyPost";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+import axios,{AxiosResponse} from "axios";
+import { Link, useParams } from "react-router-dom";
 import Modals from "./Modal";
 import {
   Follower,
@@ -18,6 +18,7 @@ const ProfileContent: React.FC = () => {
   const params = useParams();
 
   const [userData, setUserData] = useState<any>([]);
+  const [mylike, setMylike] = useState<Posts[]>([]);
   const [loginUser, setLoginUser] = useState<any>([]);
   const [followers, setFollowers] = useState<number>();
   const [followings, setFollowings] = useState<number>();
@@ -41,6 +42,21 @@ const ProfileContent: React.FC = () => {
     loginUser();
   }, []);
 
+  useEffect(() => {
+    const postLike = async () => {
+      const user = {
+        authorId: params.id,
+      };
+      console.log(user);
+      const response = await axios
+        .post("/post/find", user)
+        .then((responses: AxiosResponse<any>) => setMylike(responses.data));
+    };
+    postLike();
+  },[])
+
+  console.log(mylike,73)
+
   const followArray = userData.followers?.map((item: any) => item.userId);
   const followUser = followArray?.includes(loginUser.userId);
 
@@ -52,10 +68,12 @@ const ProfileContent: React.FC = () => {
         const followerItem: FollowerItem = {
           followerId: userData.id,
           userId: loginUser.userId,
+          followId: Number(data),
         };
         const followItem: FollowItem = {
           followId: Number(data),
           userId: userData.userId,
+          followerId: userData.id,
         };
         console.log(followItem);
         await axios.post("/follower", followerItem);
@@ -113,8 +131,6 @@ const ProfileContent: React.FC = () => {
     window.location.reload();
   };
 
-  console.log(loginUser, 97);
-
   return (
     <div className="basis-2/4 max-h-screen overflow-scroll">
       <div className="mt-5 border-b-4">
@@ -144,8 +160,22 @@ const ProfileContent: React.FC = () => {
           </ul>
           <div>
             <ul className="flex mb-2">
-              <li className="mr-5">{followings}フォロー</li>
-              <li>{followers}フォロワー</li>
+              <li className="mr-5">
+                <Link
+                  to={`/profile/${params.id}/following`}
+                  state={{ state: userData }}
+                >
+                  {followings}フォロー
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={`/profile/${params.id}/follower`}
+                  state={{ state: userData }}
+                >
+                  {followers}フォロワー
+                </Link>
+              </li>
             </ul>
             <button
               onClick={clickFollow}
@@ -159,6 +189,13 @@ const ProfileContent: React.FC = () => {
             >
               フォローを外す
             </button>
+            <Link
+              to={{pathname: `/profile/${params.id}/like`}}
+              state={{ state: mylike }}
+              className="px-2 py-1.5 ml-40 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
+            >
+              いいね
+            </Link>
           </div>
         </div>
         <Modals
