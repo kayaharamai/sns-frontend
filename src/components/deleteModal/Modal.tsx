@@ -1,7 +1,9 @@
 import { Container } from "@mui/material";
+import React from "react";
 import Modal from "react-modal";
+import { PropsModal } from "../../types/Types";
 
-function Modals(props) {
+const Modals: React.FC<PropsModal> = (props) => {
   const { remove, editModalIsOpen, setEditModalIsOpen } = props;
 
   const customStyles = {
@@ -23,12 +25,13 @@ function Modals(props) {
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
-        <p class="text-center m-5">本当に削除しますか？</p>
-        <ul class="flex justify-around m-5">
+        <p className="text-center m-5">本当に削除しますか？</p>
+        <p className="text-center m-2 text-sm">この操作は取り消せません。</p>
+        <ul className="flex justify-around m-5">
           <li>
             <button
               onClick={remove}
-              class="px-5 py-1 ml-5 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
+              className="px-5 py-1 ml-5 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
             >
               はい
             </button>
@@ -36,7 +39,7 @@ function Modals(props) {
           <li>
             <button
               onClick={cancel}
-              class="px-5 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80 "
+              className="px-5 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80 "
             >
               いいえ
             </button>

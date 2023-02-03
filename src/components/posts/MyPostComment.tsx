@@ -2,18 +2,19 @@ import React from "react";
 import { useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
+import { Comment, NewComment, PropsMyPost } from "../../types/Types";
 
-const MyPostComment = (props) => {
+const MyPostComment: React.FC<PropsMyPost> = (props) => {
   const { mypost, userData } = props;
-  const desc = useRef();
-  const [alertMessage, setAlertMessage] = useState(false);
+  const desc = useRef<HTMLInputElement>(null!);
+  const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
-  const myPostComment = mypost.comment;
+  const myPostComment: Comment[] = mypost.comment;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newComment = {
+    const newComment: NewComment = {
       comment: desc.current.value,
       postId: mypost.id,
       userId: userData.userId,
@@ -30,25 +31,25 @@ const MyPostComment = (props) => {
   return (
     <div>
       <div>
-        {myPostComment.map((comment) => {
+        {myPostComment.map((comment: Comment) => {
           return (
-            <p class="my-5 mr-3">
+            <p key={comment.id} className="my-5 mr-3">
               {comment.userId}
-              <span class="ml-5">{comment.comment}</span>
+              <span className="ml-5">{comment.comment}</span>
             </p>
           );
         })}
       </div>
-      <form onSubmit={handleSubmit} class="my-6 bg-mygreen rounded-lg">
+      <form onSubmit={handleSubmit} className="my-6 bg-mygreen rounded-lg">
         <input
           type="text"
           placeholder="コメントする"
           ref={desc}
-          class="mr-3 my-4 ml-2 w-9/12"
+          className="mr-3 my-4 ml-2 w-9/12"
         ></input>
         <button
-          type="suubmit"
-          class="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
+          type="submit"
+          className="px-2 py-1 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
         >
           投稿
         </button>

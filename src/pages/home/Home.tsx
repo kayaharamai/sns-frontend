@@ -3,11 +3,11 @@ import Timeline from "../../components/Timeline";
 import Sidebar from "../../components/Sidebar";
 import Rightbar from "../../components/rightbar/Rightbar";
 
-const Home = () => {
+const Home: React.FC = () => {
 
   
   return (
-    <div class="flex w-full h-screen">
+    <div className="flex w-full h-screen">
       <Sidebar />
       <Timeline />
       <Rightbar />

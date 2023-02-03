@@ -1,10 +1,10 @@
 import React from 'react'
-import SettingItem from '../../components/SettingItem'
+import SettingItem from '../../components/setting/SettingItem'
 import Sidebar from '../../components/Sidebar'
 
-const Setting = () => {
+const Setting: React.FC = () => {
   return (
-    <div class="flex w-full h-screen">
+    <div className="flex w-full h-screen">
         <Sidebar />
         <SettingItem />
     </div>
