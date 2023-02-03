@@ -1,7 +1,7 @@
 import React from 'react'
 import Rightbar from '../../components/rightbar/Rightbar'
 import Sidebar from '../../components/Sidebar'
-import ProfileContent from '../../components/ProfileContent'
+import ProfileContent from '../../components/profile/ProfileContent'
 
 const Profile: React.FC = () => {
   return (

@@ -6,7 +6,6 @@ import { Comment, NewComment, PropsPost } from "../../types/Types";
 
 const CommentPost: React.FC<PropsPost> = (props) => {
   const { post, userData } = props;
-  console.log(post, 90);
 
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
@@ -17,10 +16,7 @@ const CommentPost: React.FC<PropsPost> = (props) => {
   const commentUser: string[] = comment.map((commentuser) => {
     return commentuser.userId;
   });
-
-  console.log(comment, comment, 10);
-  console.log(commentUser);
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MyPost from "./posts/MyPost";
+import MyPost from "../posts/MyPost";
 import axios, { AxiosResponse } from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Modals from "./Modal";
+import { Link, useParams } from "react-router-dom";
+import Modals from "../deleteModal/Modal";
 import {
   Follower,
   FollowerItem,
@@ -10,19 +10,15 @@ import {
   FollowItem,
   Posts,
   SearchItem,
-  UserData,
-} from "../types/Types";
+} from "../../types/Types";
 import LikeContents from "./LikeContents";
-import { ArrowBack } from "@mui/icons-material";
 
 const ProfileContent: React.FC = () => {
   const data: string | null = localStorage.getItem("id");
-  const likeOpen: string | null = localStorage.getItem("like");
   const params = useParams();
-  const navigate = useNavigate();
 
   const [userData, setUserData] = useState<any>([]);
-  const [mylike, setMylike] = useState<any>([]);
+  const [mylike, setMylike] = useState<Posts[]>([]);
   const [loginUser, setLoginUser] = useState<any>([]);
   const [followers, setFollowers] = useState<number>();
   const [followings, setFollowings] = useState<number>();
@@ -31,7 +27,9 @@ const ProfileContent: React.FC = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
   const [likeConfirm, setLikeConfirm] = useState<boolean>(false);
 
+
   useEffect(() => {
+    //ログインユーザーの取得
     const currentUser = async () => {
       const response = await axios.get(`/profile/${params.id}`);
       setUserData(response.data);
@@ -48,11 +46,11 @@ const ProfileContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    //いいね済みの投稿を取得してコンポーネント受け渡し
     const postLike = async () => {
       const user = {
         authorId: params.id,
       };
-      console.log(user);
       const response = await axios
         .post("/post/find", user)
         .then((responses: AxiosResponse<any>) => setMylike(responses.data));
@@ -61,6 +59,8 @@ const ProfileContent: React.FC = () => {
   }, []);
 
   const followArray = userData.followers?.map((item: any) => item.userId);
+
+  //フォロー確認（フォロワー内のログインユーザーID確認）
   const followUser = followArray?.includes(loginUser.userId);
 
   const clickFollow = async () => {
@@ -90,6 +90,7 @@ const ProfileContent: React.FC = () => {
   };
 
   const clickRemove = () => {
+    //フォロー解除に必要な情報をバックエンド側で絞り込んで取得
     if (Number(data) !== userData.id) {
       setEditModalIsOpen(true);
       const searchItem: SearchItem = {
@@ -117,6 +118,7 @@ const ProfileContent: React.FC = () => {
   };
 
   const remove = () => {
+    //フォロー済みユーザーの削除、削除モーダルへ受け渡して処理
     const userRemove = async () => {
       const response = await axios.delete(
         `/followings/${Number(removeUser[0].id)}`
@@ -133,15 +135,14 @@ const ProfileContent: React.FC = () => {
     setEditModalIsOpen(false);
     window.location.reload();
   };
+
   const likePost = () => {
     if (likeConfirm === false) {
       setLikeConfirm(true);
     } else {
       setLikeConfirm(false);
     }
-      
   };
-
 
   return (
     <div className="basis-2/4 max-h-screen overflow-scroll">
@@ -154,7 +155,7 @@ const ProfileContent: React.FC = () => {
               className="w-20 rounded-full mr-5"
             />
           </div>
-          <ul className="flex items-center ">
+          <ul className="flex items-center">
             <li className="mr-4 font-semibold text-lg">{userData.username}</li>
             <li className="font-semibold text-lg">@{userData.userId}</li>
             <li>
@@ -171,7 +172,7 @@ const ProfileContent: React.FC = () => {
             <li>{userData.desc}</li>
           </ul>
           <div>
-            <ul className="flex mb-2">
+            <ul className="flex mb-5">
               <li className="mr-5">
                 <Link
                   to={`/profile/${params.id}/following`}
@@ -195,34 +196,28 @@ const ProfileContent: React.FC = () => {
             >
               フォローする
             </button>
-            <button
-              onClick={clickRemove}
-              className="px-2 py-1 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
-            >
-              フォローを外す
-            </button>
+            {followUser ? (
+              <button
+                onClick={clickRemove}
+                className="px-2 py-1 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
+              >
+                フォローを外す
+              </button>
+            ) : (
+              ""
+            )}
+
             <button
               onClick={likePost}
               className="ml-5 px-2 py-1 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
             >
               いいね
             </button>
-            {/* <button onClick={likePost}>いいね</button>
-            {likeConfirm ? (
-            <ul className="bg-mypink">
-              {mylike.map((mylikePost: any) => {
-                return (
-                  <li>
-                    <LikeContents mylike={mylikePost} />
-                  </li>
-                );
-              })}
-            </ul>) : ("")} */}
           </div>
         </div>
         <Modals
           remove={remove}
-          // appElement={document.getElementById('app')}
+          appElement={document.getElementById("app")}
           editModalIsOpen={editModalIsOpen}
           setEditModalIsOpen={setEditModalIsOpen}
         />
@@ -231,7 +226,7 @@ const ProfileContent: React.FC = () => {
       {likeConfirm ? (
         <ul>
           <li className="m-5 font-semibold text-lg border-double border-b-2 border-mypink inline-block">
-            いいね一覧
+            All Likes
           </li>
           {mylike.map((mylikePost: any) => {
             return (
@@ -243,17 +238,16 @@ const ProfileContent: React.FC = () => {
         </ul>
       ) : (
         <div>
+          <p　className="m-5 font-semibold text-lg border-double border-b-2 border-mypink inline-block">All Posts</p>
           {userData.posts?.map((mypost: Posts) => {
             return (
-              <MyPost mypost={mypost} key={mypost.id} userData={userData} />
+              <React.Fragment key={mypost.id}>
+                <MyPost mypost={mypost} key={mypost.id} userData={userData} />
+              </React.Fragment>
             );
           })}
         </div>
       )}
-
-      {/* {userData.posts?.map((mypost: Posts) => {
-        return <MyPost mypost={mypost} key={mypost.id} userData={userData} />;
-      })} */}
     </div>
   );
 };

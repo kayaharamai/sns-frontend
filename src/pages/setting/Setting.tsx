@@ -1,5 +1,5 @@
 import React from 'react'
-import SettingItem from '../../components/SettingItem'
+import SettingItem from '../../components/setting/SettingItem'
 import Sidebar from '../../components/Sidebar'
 
 const Setting: React.FC = () => {

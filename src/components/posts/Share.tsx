@@ -13,8 +13,7 @@ const Share: React.FC<{ userData: any }> = (userData) => {
 
   const desc = useRef<HTMLTextAreaElement>(null!);
   const data: string | null = localStorage.getItem("id");
-
-  console.log(userData, 109);
+  const postOpen: string | null = localStorage.getItem("post");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,39 +42,32 @@ const Share: React.FC<{ userData: any }> = (userData) => {
     window.localStorage.setItem("post", "open");
     setEditModalIsOpen(true);
   };
-  const postOpen = localStorage.getItem("post");
 
   const clickUpdate = () => {
     window.location.reload();
   };
 
-  console.log(editModalIsOpen, 13);
-
   return (
     <div className="border-b-4">
       <div className="flex justify-between my-8 mr-12 ml-3">
-      {postOpen !== "open" ? (
-            <h1 className="pb-3 ml-2 font-semibold text-lg">ホーム</h1>
-          ) : (
-            ""
-          )}
-
-{postOpen !== "open" ? (
-        <button
-          onClick={clickUpdate}
-          className="px-2 py-1 mr-0 bg-mygray  font-semibold text-sm text-white rounded-full hover:opacity-80"
-        >
-          <Update />
-        </button>
-      ) : (
-        ""
-      )}
-
+        {postOpen !== "open" ? (
+          <h1 className="pb-3 ml-2 font-semibold text-lg">ホーム</h1>
+        ) : (
+          ""
+        )}
+        {postOpen !== "open" ? (
+          <button
+            onClick={clickUpdate}
+            className="px-2 py-1 mr-0 bg-mygray  font-semibold text-sm text-white rounded-full hover:opacity-80"
+          >
+            <Update />
+          </button>
+        ) : (
+          ""
+        )}
       </div>
       <form onSubmit={(e) => handleSubmit(e)} className="m-4">
         <div>
-          
-
           <ul className="flex p-2">
             <li>
               <img
@@ -115,24 +107,13 @@ const Share: React.FC<{ userData: any }> = (userData) => {
           </ul>
         </div>
       </form>
-      {/* {postOpen !== "open" ? (
-        <button
-          onClick={clickUpdate}
-          className="px-2 py-1 mr-0 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
-        >
-          <Update />
-        </button>
-      ) : (
-        ""
-      )} */}
-
       <div className="">
         {!editModalIsOpen ? (
           <div>
             {postOpen !== "open" ? (
               <div className="fixed z-50 bg-mypink p-3 rounded-3xl bottom-10 right-96">
                 <button onClick={clickPost}>
-                  <Add />
+                  <Add className="text-white"/>
                 </button>
               </div>
             ) : (
@@ -142,9 +123,9 @@ const Share: React.FC<{ userData: any }> = (userData) => {
         ) : (
           ""
         )}
-
         {editModalIsOpen ? (
           <PostModal
+            appElement={document.getElementById("app")}
             editModalIsOpen={editModalIsOpen}
             setEditModalIsOpen={setEditModalIsOpen}
             userData={userData}

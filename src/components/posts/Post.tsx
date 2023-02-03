@@ -2,7 +2,6 @@ import React from "react";
 import {
   ChatBubbleOutline,
   Check,
-  Favorite,
   FavoriteBorder,
 } from "@mui/icons-material";
 import axios from "axios";
@@ -12,7 +11,7 @@ import { Link } from "react-router-dom";
 import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
-import DeleteModal from "../DeleteModal";
+import DeleteModal from "../deleteModal/DeleteModal";
 import { PropsPost,LikeId } from "../../types/Types";
 
 
@@ -27,6 +26,11 @@ const Post: React.FC<PropsPost> = (props) => {
   extend(relativeTime);
 
   const liked = post.likes.map((like: LikeId) => like.likes);
+  
+  //投稿のいいねに自分のuserIdがあるか
+  const likeId: LikeId[] = post.likes.filter((item: LikeId) =>
+    item.likes === userData.userId
+  );
 
   const clickComment = () => {
     if (openComment === false) {
@@ -35,14 +39,6 @@ const Post: React.FC<PropsPost> = (props) => {
       setOpenComment(false);
     }
   };
-
-  console.log(post.likes,100)
-  console.log(userData.userId,75)
-
-
-  const likeId: LikeId[] = post.likes.filter((item: LikeId) =>
-    item.likes === userData.userId
-  );
 
   const clickLike = () => {
     const likeItem = {
@@ -66,9 +62,6 @@ const Post: React.FC<PropsPost> = (props) => {
       window.location.reload();
     }
   };
-
-  let postArray = [];
-  postArray.push(post);
 
   const deleteAlert = () => {
     if (Number(data) === post.authorId) {
@@ -131,7 +124,6 @@ const Post: React.FC<PropsPost> = (props) => {
             </li>
             {editModalIsOpen ? (
               <DeleteModal
-                // userDelete={"ok"}
                 clickDelete={clickDelete}
                 editModalIsOpen={editModalIsOpen}
                 setEditModalIsOpen={setEditModalIsOpen}

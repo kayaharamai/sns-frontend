@@ -1,5 +1,5 @@
-import { Favorite, Home, Person, Settings } from "@mui/icons-material";
-import React, {useState} from "react";
+import { Home, Person, Settings } from "@mui/icons-material";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -24,7 +24,9 @@ const Sidebar: React.FC = () => {
           <li className="m-1 lg:m-3 xl:m-8 bg-mygreen w-10 lg:w-1/2 xl:w-1/2 p-2 lg:p-2 xl:p-2  rounded-3xl shadow-md hover:shadow-none">
             <Home />
             <Link to="/home">
-              <span className="ml-2 text-xs lg:text-sm xl:text-base hidden md:inline-block">ホーム</span>
+              <span className="ml-2 text-xs lg:text-sm xl:text-base hidden md:inline-block">
+                ホーム
+              </span>
             </Link>
           </li>
           <li className="m-8 bg-mygreen w-1/2 p-2 rounded-3xl shadow-md hover:shadow-none">

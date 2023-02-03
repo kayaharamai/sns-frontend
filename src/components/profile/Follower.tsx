@@ -17,12 +17,12 @@ const Follower = () => {
   useEffect(() => {
     setfollowerList(state.state.followers);
   }, []);
-console.log(followerList)
+
   return (
-    <div>
+    <div className="max-h-screen overflow-scroll">
       <div>
         <button onClick={clickReturn}>
-          <ArrowBack />
+          <ArrowBack className="m-5"/>
         </button>
       </div>
       <div className="bg-mygreen w-4/12 my-6 mx-auto p-3 rounded-3xl">

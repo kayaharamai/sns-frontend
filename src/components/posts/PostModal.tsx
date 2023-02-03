@@ -1,16 +1,16 @@
+import { Close } from "@mui/icons-material";
 import { Container } from "@mui/material";
-import React, { useState, useRef } from "react";
+import React from "react";
 import Modal from "react-modal";
-import { NewPost } from "../../types/Types";
-import axios, { AxiosResponse } from "axios";
+import { PropsPostModal } from "../../types/Types";
 import Share from "./Share";
 
-const PostModal = (props: any) => {
+const PostModal: React.FC<PropsPostModal> = (props) => {
   const { editModalIsOpen, setEditModalIsOpen, userData } = props;
 
   const customStyles = {
     content: {
-      top: "20%",
+      top: "25%",
       left: "50%",
       right: "auto",
       bottom: "auto",
@@ -25,13 +25,11 @@ const PostModal = (props: any) => {
     setEditModalIsOpen(false);
   };
 
-  console.log(editModalIsOpen,74)
-
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
         <div>
-          <button onClick={close}>×</button>
+          <button onClick={close}><Close /></button>
           <Share userData={userData.userData} />
         </div>
       </Modal>

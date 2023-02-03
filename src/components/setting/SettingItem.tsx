@@ -2,16 +2,18 @@ import React from "react";
 import { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import DeleteModal from "./DeleteModal";
-import { ChangeItem } from "../types/Types";
+import DeleteModal from "../deleteModal/DeleteModal";
+import { ChangeItem } from "../../types/Types";
 
 const SettingItem = () => {
   const profile = useRef<HTMLInputElement>(null!);
 
   const data: string | null = localStorage.getItem("id");
+
   const navigate = useNavigate();
+
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
-  const [alertMessage, setAlertMessage] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<boolean>(false);
 
   const clickChange = async () => {
     const changeItem: ChangeItem = {
@@ -46,8 +48,13 @@ const SettingItem = () => {
         >
           変更
         </button>
-        {alertMessage ? (<p className="ml-3 text-red-500 text-sm">変更内容を入力してください</p>) : ("")}
-        
+        {alertMessage ? (
+          <p className="ml-3 text-red-500 text-sm">
+            変更内容を入力してください
+          </p>
+        ) : (
+          ""
+        )}
       </div>
       <div className="bg-mygreen my-8 px-3 py-5 w-10/12 rounded-lg">
         <h3 className="mb-5">アカウント削除</h3>
@@ -59,6 +66,7 @@ const SettingItem = () => {
         </button>
         {editModalIsOpen ? (
           <DeleteModal
+            appElement={document.getElementById("app")}
             userDelete={userDelete}
             editModalIsOpen={editModalIsOpen}
             setEditModalIsOpen={setEditModalIsOpen}

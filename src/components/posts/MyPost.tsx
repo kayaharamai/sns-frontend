@@ -6,7 +6,7 @@ import { useState } from "react";
 import dayjs, { locale, extend } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ja";
-import DeleteModal from "../DeleteModal";
+import DeleteModal from "../deleteModal/DeleteModal";
 import { LikeId, PropsMyPost } from "../../types/Types";
 
 const MyPost: React.FC<PropsMyPost> = (props) => {
@@ -14,7 +14,6 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
 
   const [openComment, setOpenComment] = useState<boolean>(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
-  const myPost: boolean = true;
   const isAdmin: boolean = true;
 
   const data: string | null = localStorage.getItem("id");
@@ -115,9 +114,8 @@ const MyPost: React.FC<PropsMyPost> = (props) => {
             </button>
             {editModalIsOpen ? (
               <DeleteModal
-                // mypost={true} //削除
-                // userDelete={"ok"}
                 isAdmin={isAdmin}
+                appElement={document.getElementById("app")}
                 clickDelete={clickMyDelete}
                 setEditModalIsOpen={setEditModalIsOpen}
                 editModalIsOpen={editModalIsOpen}

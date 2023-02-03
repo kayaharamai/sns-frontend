@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useRef } from "react";
 import axios, { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserRegister } from "../types/Types";
+import { UserRegister } from "../../types/Types";
 
 const RegisterInput: React.FC = () => {
+  
   const userName = useRef<HTMLInputElement>(null!);
   const userId = useRef<HTMLInputElement>(null!);
   const userEmail = useRef<HTMLInputElement>(null!);

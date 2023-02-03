@@ -132,19 +132,19 @@ export interface PropsMyPost {
 export interface PropsModal {
   remove: () => void;
   editModalIsOpen: boolean;
-  setEditModalIsOpen: any
-}
-
-export interface PropsDeleteModal {
-  userDelete: any;
-  clickDelete: () => void;
-  editModalIsOpen: boolean;
   setEditModalIsOpen: any;
-  isAdmin: boolean;
+  appElement: HTMLElement | null
 }
 
 export interface LikeId {
   id: number | null;
   likes: string;
   authorId: number
+}
+
+export interface PropsPostModal {
+  userData: any;
+  editModalIsOpen: boolean;
+  setEditModalIsOpen: any;
+  appElement: HTMLElement | null
 }

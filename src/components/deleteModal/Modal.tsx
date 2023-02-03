@@ -1,16 +1,10 @@
 import { Container } from "@mui/material";
 import React from "react";
 import Modal from "react-modal";
-import { PropsDeleteModal } from "../types/Types";
+import { PropsModal } from "../../types/Types";
 
-const DeleteModal= (props:any) => {
-  const {
-    userDelete,
-    clickDelete,
-    editModalIsOpen,
-    setEditModalIsOpen,
-    isAdmin,
-  } = props;
+const Modals: React.FC<PropsModal> = (props) => {
+  const { remove, editModalIsOpen, setEditModalIsOpen } = props;
 
   const customStyles = {
     content: {
@@ -31,28 +25,17 @@ const DeleteModal= (props:any) => {
   return (
     <Container maxWidth="sm">
       <Modal isOpen={editModalIsOpen} style={customStyles}>
-        <p className="text-center m-4">本当に削除しますか？</p>
+        <p className="text-center m-5">本当に削除しますか？</p>
         <p className="text-center m-2 text-sm">この操作は取り消せません。</p>
         <ul className="flex justify-around m-5">
-          {isAdmin ? (
-            <li>
-              <button
-                onClick={clickDelete}
-                className="px-5 py-1 ml-5 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
-              >
-                はい
-              </button>
-            </li>
-          ) : (
-            <li>
-              <button
-                onClick={userDelete}
-                className="px-5 py-1 ml-5 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
-              >
-                はい
-              </button>
-            </li>
-          )}
+          <li>
+            <button
+              onClick={remove}
+              className="px-5 py-1 ml-5 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
+            >
+              はい
+            </button>
+          </li>
           <li>
             <button
               onClick={cancel}
@@ -67,4 +50,4 @@ const DeleteModal= (props:any) => {
   );
 }
 
-export default DeleteModal;
+export default Modals;

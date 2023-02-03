@@ -9,6 +9,7 @@ const SearchInput: React.FC = () => {
   const userId = useRef<HTMLInputElement>(null!);
 
   const clickSearch = () => {
+    //バックエンド側でユーザーIDの部分一致検索
     console.log(userId.current.value.length);
     const searchItem: SearchUser = {
       userId: userId.current.value,
@@ -21,7 +22,6 @@ const SearchInput: React.FC = () => {
           .then((responses: AxiosResponse<SearchUserData[]>) =>
             setUserData(responses.data)
           );
-        // return response.data;
       };
       getUser();
       setAlertMessage(false);
@@ -29,8 +29,6 @@ const SearchInput: React.FC = () => {
       setAlertMessage(true);
     }
   };
-
-  console.log(Object.keys(userData).length === 0,9);
 
   return (
     <div className="my-8 pb-2">

@@ -11,8 +11,6 @@ const LikeComment: React.FC<PropsMyPost> = (props) => {
 
   const myPostComment: Comment[] = mypost.comment;
 
-  console.log(myPostComment, 78);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -35,7 +33,7 @@ const LikeComment: React.FC<PropsMyPost> = (props) => {
       <div>
         {myPostComment.map((comment: Comment) => {
           return (
-            <p className="my-5 mr-3">
+            <p key={comment.id} className="my-5 mr-3">
               {comment.userId}
               <span className="ml-5">{comment.comment}</span>
             </p>

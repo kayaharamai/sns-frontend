@@ -9,11 +9,10 @@ const LoginItem: React.FC = () => {
   const navigate = useNavigate();
   const email = useRef<HTMLInputElement>(null!);
   const pass = useRef<HTMLInputElement>(null!);
-  const [loginuser, setLoginUser] = useState<any>([]); //LoginUser[]
+  const [loginuser, setLoginUser] = useState<any>([]); 
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
   const [noLoginMessage, setNoLogintMessage] = useState<boolean>(false);
 
-  let errorData = "";
   const clickLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -43,8 +42,6 @@ const LoginItem: React.FC = () => {
   if (loginArray.length > 0) {
     window.localStorage.setItem("id", loginuser.id);
     navigate("/home");
-  } else {
-    // setAlertMessage(true)
   }
 
   return (
