@@ -13,9 +13,11 @@ import {
   UserData,
 } from "../types/Types";
 import LikeContents from "./LikeContents";
+import { ArrowBack } from "@mui/icons-material";
 
 const ProfileContent: React.FC = () => {
   const data: string | null = localStorage.getItem("id");
+  const likeOpen: string | null = localStorage.getItem("like");
   const params = useParams();
   const navigate = useNavigate();
 
@@ -137,7 +139,9 @@ const ProfileContent: React.FC = () => {
     } else {
       setLikeConfirm(false);
     }
+      
   };
+
 
   return (
     <div className="basis-2/4 max-h-screen overflow-scroll">
@@ -197,18 +201,13 @@ const ProfileContent: React.FC = () => {
             >
               フォローを外す
             </button>
-            {/* {mylike.map((mylikePost:any) => {
-                return (
-            <Link
-              to={{pathname: `/profile/${params.id}/like`}}
-              state={{ state: mylike }}
-              className="px-2 py-1.5 ml-40 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
+            <button
+              onClick={likePost}
+              className="ml-5 px-2 py-1 bg-mypink font-semibold text-sm text-white rounded-full hover:opacity-80"
             >
               いいね
-            </Link>
-            )
-            })}  */}
-            <button onClick={likePost}>いいね</button>
+            </button>
+            {/* <button onClick={likePost}>いいね</button>
             {likeConfirm ? (
             <ul className="bg-mypink">
               {mylike.map((mylikePost: any) => {
@@ -218,8 +217,7 @@ const ProfileContent: React.FC = () => {
                   </li>
                 );
               })}
-            </ul>) : ("")}
-            
+            </ul>) : ("")} */}
           </div>
         </div>
         <Modals
@@ -229,9 +227,33 @@ const ProfileContent: React.FC = () => {
           setEditModalIsOpen={setEditModalIsOpen}
         />
       </div>
-      {userData.posts?.map((mypost: Posts) => {
+
+      {likeConfirm ? (
+        <ul>
+          <li className="m-5 font-semibold text-lg border-double border-b-2 border-mypink inline-block">
+            いいね一覧
+          </li>
+          {mylike.map((mylikePost: any) => {
+            return (
+              <li key={mylikePost.id}>
+                <LikeContents mylike={mylikePost} />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div>
+          {userData.posts?.map((mypost: Posts) => {
+            return (
+              <MyPost mypost={mypost} key={mypost.id} userData={userData} />
+            );
+          })}
+        </div>
+      )}
+
+      {/* {userData.posts?.map((mypost: Posts) => {
         return <MyPost mypost={mypost} key={mypost.id} userData={userData} />;
-      })}
+      })} */}
     </div>
   );
 };

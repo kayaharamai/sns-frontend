@@ -18,7 +18,6 @@ const Top: React.FC = () => {
         >
           はじめよう
         </button>
-        {/* <img src={`${process.env.PUBLIC_URL}/top.png`} alt="topIcon" /> */}
       </div>
     </div>
   );

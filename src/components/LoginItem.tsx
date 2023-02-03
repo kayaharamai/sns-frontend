@@ -11,8 +11,9 @@ const LoginItem: React.FC = () => {
   const pass = useRef<HTMLInputElement>(null!);
   const [loginuser, setLoginUser] = useState<any>([]); //LoginUser[]
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
+  const [noLoginMessage, setNoLogintMessage] = useState<boolean>(false);
 
-
+  let errorData = "";
   const clickLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -20,22 +21,23 @@ const LoginItem: React.FC = () => {
       email: email.current.value,
       password: pass.current.value,
     };
-    if (email.current.value !== "" || pass.current.value !== "") {
-      const getUser = async () => {
-        const response = await axios
-          .post("/login", loginInputItem)
-          .then((responses: AxiosResponse<LoginUser[]>) =>
-            setLoginUser(responses.data)
-          );
-        // return response.data;
-      };
-      getUser();
-    } else {
-      setAlertMessage(true);
-    }
+    const getUser = async () => {
+      try {
+        if (email.current.value !== "" || pass.current.value !== "") {
+          const response = await axios
+            .post("/login", loginInputItem)
+            .then((responses: AxiosResponse<LoginUser[]>) =>
+              setLoginUser(responses.data)
+            );
+        } else {
+          setAlertMessage(true);
+        }
+      } catch (err) {
+        setNoLogintMessage(true);
+      }
+    };
+    getUser();
   };
-
-  console.log(loginuser, 105);
 
   const loginArray: string[] = Object.keys(loginuser);
   if (loginArray.length > 0) {
@@ -86,7 +88,15 @@ const LoginItem: React.FC = () => {
             </div>
             {alertMessage ? (
               <p className="text-red-500 text-xs text-center">
-                入力に誤りがあります
+                Eメールとパスワードを入力してください
+              </p>
+            ) : (
+              ""
+            )}
+
+            {noLoginMessage ? (
+              <p className="text-red-500 text-xs text-center">
+                ユーザーが見つかりません
               </p>
             ) : (
               ""

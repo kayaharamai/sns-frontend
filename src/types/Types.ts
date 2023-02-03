@@ -1,5 +1,4 @@
 
-//interface　か　type か？
 export interface Posts {
   authorId: number;
   comment: [];
@@ -139,11 +138,9 @@ export interface PropsModal {
 export interface PropsDeleteModal {
   userDelete: any;
   clickDelete: () => void;
-  // clickMyDelete: () => void;
   editModalIsOpen: boolean;
   setEditModalIsOpen: any;
   isAdmin: boolean;
-  // mypost: boolean;
 }
 
 export interface LikeId {

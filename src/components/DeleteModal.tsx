@@ -7,11 +7,9 @@ const DeleteModal= (props:any) => {
   const {
     userDelete,
     clickDelete,
-    // clickMyDelete,
     editModalIsOpen,
     setEditModalIsOpen,
     isAdmin,
-    // mypost,
   } = props;
 
   const customStyles = {

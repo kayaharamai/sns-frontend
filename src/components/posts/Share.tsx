@@ -53,13 +53,28 @@ const Share: React.FC<{ userData: any }> = (userData) => {
 
   return (
     <div className="border-b-4">
-      <form onSubmit={(e) => handleSubmit(e)} className="m-4">
-        <div>
-          {postOpen !== "open" ? (
-            <h1 className="pb-3 ml-2 mt-8 font-semibold text-lg">ホーム</h1>
+      <div className="flex justify-between my-8 mr-12 ml-3">
+      {postOpen !== "open" ? (
+            <h1 className="pb-3 ml-2 font-semibold text-lg">ホーム</h1>
           ) : (
             ""
           )}
+
+{postOpen !== "open" ? (
+        <button
+          onClick={clickUpdate}
+          className="px-2 py-1 mr-0 bg-mygray  font-semibold text-sm text-white rounded-full hover:opacity-80"
+        >
+          <Update />
+        </button>
+      ) : (
+        ""
+      )}
+
+      </div>
+      <form onSubmit={(e) => handleSubmit(e)} className="m-4">
+        <div>
+          
 
           <ul className="flex p-2">
             <li>
@@ -77,6 +92,7 @@ const Share: React.FC<{ userData: any }> = (userData) => {
                 cols={60}
               ></textarea>
             </li>
+            <li></li>
           </ul>
           {alertMessage ? (
             <p className="ml-8 text-red-500 text-sm">文字を入力してください</p>
@@ -99,7 +115,7 @@ const Share: React.FC<{ userData: any }> = (userData) => {
           </ul>
         </div>
       </form>
-      {postOpen !== "open" ? (
+      {/* {postOpen !== "open" ? (
         <button
           onClick={clickUpdate}
           className="px-2 py-1 mr-0 bg-mygray font-semibold text-sm text-white rounded-full hover:opacity-80"
@@ -108,7 +124,7 @@ const Share: React.FC<{ userData: any }> = (userData) => {
         </button>
       ) : (
         ""
-      )}
+      )} */}
 
       <div className="">
         {!editModalIsOpen ? (

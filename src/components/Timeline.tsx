@@ -7,7 +7,7 @@ import { Posts, UserData } from "../types/Types";
 
 const Timeline: React.FC = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
-  const [userData, setUserData] = useState<any>([]); //UserData
+  const [userData, setUserData] = useState<any>([]); 
   const data: string | null = localStorage.getItem("id");
 
   useEffect(() => {

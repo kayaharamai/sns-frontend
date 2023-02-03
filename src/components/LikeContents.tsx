@@ -11,10 +11,11 @@ import {
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { LikeId } from "../types/Types";
-import Like from "../pages/like/Like";
+import LikeComment from "./posts/LikeComment";
 
 const LikeContents = (mylike:any) => {
   const [myuser, setMyUser] = useState<any>([]);
+  const [openComment, setOpenComment] = useState<boolean>(false);
   // const {state} = useLocation();
 
   const navigate = useNavigate();
@@ -41,6 +42,14 @@ const LikeContents = (mylike:any) => {
     navigate(`/profile/${params.id}`);
   };
 
+  const clickComment = () => {
+    if (openComment === false) {
+      setOpenComment(true);
+    } else {
+      setOpenComment(false);
+    }
+  };
+
   const likeId: LikeId[] = likePost.likes?.filter((item: LikeId) =>
     item.likes === myuser.userId
   );
@@ -65,7 +74,7 @@ const LikeContents = (mylike:any) => {
   console.log(mylike,0)
 
   return (
-    <div className="p-6 border-b-2">        
+    <div className="p-6 border-b-2">  
         <div>
           <ul className="flex">
             <li className="mr-4">
@@ -88,17 +97,17 @@ const LikeContents = (mylike:any) => {
         <div>
           <ul className="flex">
             <li className="w-32 items-center">
-              {/* <ChatBubbleOutline onClick={clickComment} /> */}
+              <ChatBubbleOutline onClick={clickComment}/>
               {likePost.comment.length}
             </li>
             <li className="w-32 items-center">
               <FavoriteBorder onClick={clickRemove} />
               {likePost.likes.length}
-              {/* {liked.includes(myuser.userId) ? <span className="text-xs ml-2 text-mypink"><Check /></span> : ""} */}
+              <span className="text-xs ml-2 text-mypink"><Check /></span>
             </li>
           </ul>
         </div>
-        {/* {openComment ? <CommentPost post={post} userData={userData} /> : ""} */}
+        {openComment ? <LikeComment mypost={likePost} userData={myuser} /> : ""}
       </div>
   );
 };
