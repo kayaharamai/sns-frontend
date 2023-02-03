@@ -74,7 +74,7 @@ const RegisterInput: React.FC = () => {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="userid"
             >
-              ユーザーID<span className="text-red-500 text-xs ml-2">必須</span>
+              ユーザーID（アルファベット）<span className="text-red-500 text-xs ml-2">必須</span>
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"
